@@ -2,30 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>waoumii</title>
 
-<link rel="stylesheet" href="assets/css/desktop.css" media="(min-width: 1024px)">
-<link rel="stylesheet" href="assets/css/tablet.css" media="(min-width: 769px) and (max-width: 1023px)">
-<link rel="stylesheet" href="assets/css/mobile.css" media="(max-width: 768px)"> 
+  <!-- Shared variables and component styles -->
+  <link rel="stylesheet" href="assets/css/mode.css">
+  <!-- Breakpoint-specific files -->
+  <link rel="stylesheet" href="assets/css/desktop.css" media="(min-width: 1024px)">
+  <link rel="stylesheet" href="assets/css/tablet.css" media="(min-width: 769px) and (max-width: 1023px)">
+  <link rel="stylesheet" href="assets/css/mobile.css" media="(max-width: 768px)">
 
-  
+  <!-- Defer the JS so DOM is present when script runs -->
+  <script defer src="assets/js/script.js"></script>
 </head>
 <body>
   <header class="topbar" role="banner">
     <div class="left brand">
       <button class="settings-btn" aria-label="open settings">⚙️</button>
-      <!-- Replace with your SVG/logo file -->
-      <img src="logo.png" alt="waoumii" style="height:22px;">
-    
-    </div>
-    <div class="right">
-      <!-- add other header controls if needed -->
+      <img src="logo.png" alt="waoumii logo" style="height:22px;">
+      <h1 style="font-weight:600;margin:0;">waoumii</h1>
     </div>
   </header>
 
   <main role="main">
-    <!-- centre area with pill toggle -->
+    <!-- Single mode toggle button the script expects -->
     <button id="modePill" class="mode-toggle" aria-pressed="false" aria-label="Toggle dark or light mode">
       <span class="label">Dark Mode</span>
       <span class="switch" aria-hidden="true">
@@ -56,48 +56,5 @@
       </nav>
     </div>
   </footer>
-
-  <!-- <script>
-    (function(){
-      const body = document.documentElement;
-      const pill = document.getElementById('modePill');
-      const label = pill.querySelector('.label');
-
-      // Load saved preference
-      const saved = localStorage.getItem('waoumii-theme');
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const initialDark = saved ? saved === 'dark' : prefersDark;
-
-      function apply(dark){
-        if(dark){
-          body.classList.add('dark');
-          label.textContent = 'Light Mode';
-          pill.setAttribute('aria-pressed','true');
-        } else {
-          body.classList.remove('dark');
-          label.textContent = 'Dark Mode';
-          pill.setAttribute('aria-pressed','false');
-        }
-      }
-
-      // initialize
-      apply(initialDark);
-
-      // Toggle on click
-      pill.addEventListener('click',()=>{
-        const dark = body.classList.toggle('dark');
-        apply(dark);
-        localStorage.setItem('waoumii-theme', dark ? 'dark' : 'light');
-      });
-
-      // keyboard accessibility
-      pill.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter' || e.key === ' '){
-          e.preventDefault();
-          pill.click();
-        }
-      });
-    })();
-  </script> -->
 </body>
 </html>
