@@ -1,20 +1,43 @@
-// Optional: Add dynamic behavior if needed
-console.log("Responsive layout loaded");
+// Theme toggle and persistence
+(function(){
+  const docEl = document.documentElement;
+  const pill = document.getElementById('modePill');
+  if(!pill) return; // nothing to do if the pill isn't present
 
-const toggleButton = document.getElementById('themeToggle');
-const body = document.body;
+  const label = pill.querySelector('.label');
 
-// Check for saved theme preference or default to light mode
-const currentTheme = localStorage.getItem('theme') || 'light';
-if (currentTheme === 'dark') {
-    body.classList.add('dark-mode');
-}
+  // Load saved preference
+  const saved = localStorage.getItem('waoumii-theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialDark = saved ? saved === 'dark' : prefersDark;
 
-// Toggle theme when button is clicked
-toggleButton.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    
-    // Save preference to localStorage
-    const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-    localStorage.setItem('theme', theme);
-});
+  function apply(dark){
+    if(dark){
+      docEl.classList.add('dark');
+      label.textContent = 'Light Mode';
+      pill.setAttribute('aria-pressed','true');
+    } else {
+      docEl.classList.remove('dark');
+      label.textContent = 'Dark Mode';
+      pill.setAttribute('aria-pressed','false');
+    }
+  }
+
+  // initialize
+  apply(initialDark);
+
+  // Toggle on click
+  pill.addEventListener('click',()=>{
+    const dark = docEl.classList.toggle('dark');
+    apply(dark);
+    localStorage.setItem('waoumii-theme', dark ? 'dark' : 'light');
+  });
+
+  // keyboard accessibility
+  pill.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      pill.click();
+    }
+  });
+})();
