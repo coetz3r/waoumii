@@ -1,1 +1,23 @@
 /* tablet settings  */
+/* tablet.css - (min-width: 769px) and (max-width: 1023px) */
+
+:root{
+  --header-height: 64px;
+  --footer-height: 76px;
+}
+
+/* Slightly different layout for tablets */
+main{
+  padding-top: calc(var(--header-height) + 28px);
+  padding-bottom: calc(var(--footer-height) + 28px);
+}
+
+/* Slightly wider pill */
+.mode-toggle{
+  padding:13px 24px;
+  font-size:14px;
+}
+
+/* nav adjustments */
+.nav-wrap{ max-width:840px; }
+.nav{ padding:10px 14px; border-radius:14px 14px 0 0; }
