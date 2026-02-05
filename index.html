@@ -1,60 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>waoumii</title>
-
-  <!-- Shared variables and component styles -->
-  <link rel="stylesheet" href="assets/css/mode.css">
-  <!-- Breakpoint-specific files -->
-  <link rel="stylesheet" href="assets/css/desktop.css" media="(min-width: 1024px)">
-  <link rel="stylesheet" href="assets/css/tablet.css" media="(min-width: 769px) and (max-width: 1023px)">
-  <link rel="stylesheet" href="assets/css/mobile.css" media="(max-width: 768px)">
-
-  <!-- Defer the JS so DOM is present when script runs -->
-  <script defer src="assets/js/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waoumii</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        }
+        .hero-light {
+            background-image: url('./hero-light.png');
+        }
+        .hero-dark {
+            background-image: url('./hero-dark.png');
+        }
+        .hero-bg {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
-<body>
-  <header class="topbar" role="banner">
-    <div class="left brand">
-      <button class="settings-btn" aria-label="open settings">⚙️</button>
-      <img src="logo.png" alt="waoumii logo" style="height:22px;">
-      <h1 style="font-weight:600;margin:0;">waoumii</h1>
-    </div>
-  </header>
+<body class="bg-gray-50 text-black">
 
-  <main role="main">
-    <!-- Single mode toggle button the script expects -->
-    <button id="modePill" class="mode-toggle" aria-pressed="false" aria-label="Toggle dark or light mode">
-      <span class="label">Dark Mode</span>
-      <span class="switch" aria-hidden="true">
-        <span class="knob"></span>
-      </span>
-    </button>
-  </main>
+    <!-- Settings Dropdown -->
+    <div id="settings-backdrop" class="hidden fixed inset-0 z-40" onclick="closeSettings()"></div>
+    
+    <div id="settings-panel" class="hidden fixed top-20 left-4 md:left-8 bg-white rounded-2xl shadow-lg z-50 p-6 w-80">
+        <!-- Close button -->
+        <button onclick="closeSettings()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        
+        <!-- Dark/Light Mode Toggle -->
+        <div class="mb-6">
+            <div class="flex items-center justify-between mb-3">
+                <span id="appearance-label" class="text-base font-medium">Appearance</span>
+            </div>
+            <div id="mode-toggle-bg" class="flex items-center justify-between bg-gray-100 rounded-full p-1">
+                <button id="light-btn" onclick="setMode('light')" class="flex-1 py-2 px-4 rounded-full transition-all bg-white text-black shadow-md">
+                    <span class="text-xs font-semibold">LIGHT MODE</span>
+                </button>
+                <button id="dark-btn" onclick="setMode('dark')" class="flex-1 py-2 px-4 rounded-full transition-all text-gray-500">
+                    <span class="text-xs font-semibold">DARK MODE</span>
+                </button>
+            </div>
+        </div>
 
-  <footer class="bottom-nav" role="contentinfo" aria-label="Primary">
-    <div class="nav-wrap">
-      <nav class="nav" role="navigation" aria-label="Bottom navigation">
-        <a class="nav-item" href="#" title="Lab">
-          <span class="icon">⚗️</span>
-          <span>Lab</span>
-        </a>
-        <a class="nav-item" href="#" title="Shop">
-          <span class="icon">🛒</span>
-          <span>Shop</span>
-        </a>
-        <a class="nav-item" href="#" title="Robotics">
-          <span class="icon">🤖</span>
-          <span>Robotics</span>
-        </a>
-        <a class="nav-item" href="#" title="Company">
-          <span class="icon">🏢</span>
-          <span>Company</span>
-        </a>
-      </nav>
+        <!-- Font Size Selector -->
+        <div>
+            <div class="flex items-center justify-between mb-3">
+                <span id="font-label" class="text-base font-medium">Font size</span>
+            </div>
+            <div class="relative">
+                <input
+                    type="range"
+                    id="font-slider"
+                    min="0"
+                    max="2"
+                    step="1"
+                    value="1"
+                    onchange="setFontSize(this.value)"
+                    class="w-full h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-gray-700"
+                />
+                <div class="flex justify-between mt-2">
+                    <span class="text-xs text-gray-500">S</span>
+                    <span class="text-xs text-gray-500">M</span>
+                    <span class="text-xs text-gray-500">L</span>
+                </div>
+            </div>
+        </div>
     </div>
-  </footer>
+
+    <!-- Top Navigation -->
+    <nav id="top-nav" class="fixed top-0 left-0 right-0 z-30 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Left: Settings button -->
+                <button onclick="toggleSettings()" id="settings-btn" class="text-black">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+                <!-- Center: Logo -->
+                <div class="flex items-center gap-2">
+                    <img src="./logo.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10" />
+                    <span id="logo-text" class="font-bold text-xl">waoumii</span>
+                </div>
+
+                <!-- Right: Navigation links (desktop only) -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#" class="nav-link text-base hover:opacity-70 transition-opacity">LAB</a>
+                    <a href="#" class="nav-link text-base hover:opacity-70 transition-opacity">SHOP</a>
+                    <a href="#" class="nav-link text-base hover:opacity-70 transition-opacity">NEWS</a>
+                    <a href="#" class="nav-link text-base hover:opacity-70 transition-opacity">COMPANY</a>
+                </div>
+
+                <!-- Mobile: User/Cart icons -->
+                <div class="flex md:hidden items-center gap-3">
+                    <button id="user-btn" class="text-black">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </button>
+                    <button id="cart-btn" class="text-black">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main id="main-content" class="bg-gray-50 px-4 md:px-8 py-12 md:py-20 pt-24 md:pt-28 pb-24 md:pb-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative mb-12 md:mb-16">
+                <div id="hero-image" class="hero-bg hero-light w-full h-64 md:h-96 lg:h-[500px] rounded-2xl opacity-80"></div>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                    <h1 id="hero-title-1" class="font-black mb-2 text-6xl md:text-8xl">
+                        worlds
+                    </h1>
+                    <h2 id="hero-title-2" class="font-black mb-4 text-6xl md:text-8xl">
+                        apart!
+                    </h2>
+                    <p id="hero-subtitle" class="text-base md:text-lg mb-6 opacity-80 max-w-2xl">
+                        unconventional thinking to the maximum
+                    </p>
+                    <button id="hero-btn" class="bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:opacity-80 transition-opacity">
+                        read more
+                    </button>
+                </div>
+            </div>
+
+            <!-- Feature Icons -->
+            <div class="grid grid-cols-3 gap-8 md:gap-16 max-w-4xl mx-auto">
+                <div class="flex flex-col items-center">
+                    <div class="text-4xl md:text-5xl mb-3">⚡</div>
+                    <span class="feature-text text-base md:text-lg">power</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-4xl md:text-5xl mb-3">🔧</div>
+                    <span class="feature-text text-base md:text-lg">pneumatic</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-4xl md:text-5xl mb-3">🤖</div>
+                    <span class="feature-text text-base md:text-lg">robotics</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile Only) -->
+    <nav id="bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200 px-6 py-4">
+        <div class="grid grid-cols-4 gap-4">
+            <button class="flex flex-col items-center">
+                <span class="text-2xl mb-1">🧪</span>
+                <span class="bottom-nav-text text-xs text-base">LAB</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <span class="text-2xl mb-1">🏪</span>
+                <span class="bottom-nav-text text-xs text-base">SHOP</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <span class="text-2xl mb-1">📰</span>
+                <span class="bottom-nav-text text-xs text-base">NEWS</span>
+            </button>
+            <button class="flex flex-col items-center">
+                <span class="text-2xl mb-1">🏢</span>
+                <span class="bottom-nav-text text-xs text-base">COMPANY</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        // Load saved preferences or use defaults
+        let isDarkMode = localStorage.getItem('darkMode') === 'true' || false;
+        let fontSize = localStorage.getItem('fontSize') || 'M'; // S, M, L
+
+        // Font size classes
+        const fontSizeClasses = {
+            S: { small: 'text-sm', base: 'text-sm md:text-base', large: 'text-lg', hero: 'text-5xl md:text-7xl', logo: 'text-lg' },
+            M: { small: 'text-base', base: 'text-base md:text-lg', large: 'text-xl', hero: 'text-6xl md:text-8xl', logo: 'text-xl' },
+            L: { small: 'text-lg', base: 'text-lg md:text-xl', large: 'text-2xl', hero: 'text-7xl md:text-9xl', logo: 'text-2xl' }
+        };
+
+        // Toggle settings panel
+        function toggleSettings() {
+            const panel = document.getElementById('settings-panel');
+            const backdrop = document.getElementById('settings-backdrop');
+            
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                backdrop.classList.remove('hidden');
+            } else {
+                panel.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-panel').classList.add('hidden');
+            document.getElementById('settings-backdrop').classList.add('hidden');
+        }
+
+        // Set dark/light mode
+        function setMode(mode) {
+            isDarkMode = (mode === 'dark');
+            localStorage.setItem('darkMode', isDarkMode); // Save preference
+            
+            const body = document.body;
+            const topNav = document.getElementById('top-nav');
+            const bottomNav = document.getElementById('bottom-nav');
+            const mainContent = document.getElementById('main-content');
+            const settingsPanel = document.getElementById('settings-panel');
+            const modeToggleBg = document.getElementById('mode-toggle-bg');
+            const heroImage = document.getElementById('hero-image');
+            const heroBtn = document.getElementById('hero-btn');
+            const lightBtn = document.getElementById('light-btn');
+            const darkBtn = document.getElementById('dark-btn');
+            const settingsBtn = document.getElementById('settings-btn');
+            const userBtn = document.getElementById('user-btn');
+            const cartBtn = document.getElementById('cart-btn');
+
+            if (isDarkMode) {
+                // Dark mode
+                body.classList.remove('bg-gray-50', 'text-black');
+                body.classList.add('bg-black', 'text-white');
+                
+                topNav.classList.remove('bg-white', 'border-gray-200');
+                topNav.classList.add('bg-zinc-900', 'border-zinc-800');
+                
+                bottomNav.classList.remove('bg-white', 'border-gray-200');
+                bottomNav.classList.add('bg-zinc-900', 'border-zinc-800');
+                
+                mainContent.classList.remove('bg-gray-50');
+                mainContent.classList.add('bg-black');
+                
+                settingsPanel.classList.remove('bg-white');
+                settingsPanel.classList.add('bg-zinc-800');
+                
+                modeToggleBg.classList.remove('bg-gray-100');
+                modeToggleBg.classList.add('bg-black');
+                
+                heroImage.classList.remove('hero-light');
+                heroImage.classList.add('hero-dark');
+                
+                heroBtn.classList.remove('bg-black', 'text-white');
+                heroBtn.classList.add('bg-white', 'text-black');
+                
+                lightBtn.classList.remove('bg-white', 'text-black', 'shadow-md');
+                lightBtn.classList.add('text-gray-500');
+                
+                darkBtn.classList.remove('text-gray-500');
+                darkBtn.classList.add('bg-white', 'text-black', 'shadow-md');
+                
+                settingsBtn.classList.remove('text-black');
+                settingsBtn.classList.add('text-white');
+                
+                userBtn.classList.remove('text-black');
+                userBtn.classList.add('text-white');
+                
+                cartBtn.classList.remove('text-black');
+                cartBtn.classList.add('text-white');
+                
+                // Update nav links color
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('text-black');
+                    link.classList.add('text-white');
+                });
+            } else {
+                // Light mode
+                body.classList.remove('bg-black', 'text-white');
+                body.classList.add('bg-gray-50', 'text-black');
+                
+                topNav.classList.remove('bg-zinc-900', 'border-zinc-800');
+                topNav.classList.add('bg-white', 'border-gray-200');
+                
+                bottomNav.classList.remove('bg-zinc-900', 'border-zinc-800');
+                bottomNav.classList.add('bg-white', 'border-gray-200');
+                
+                mainContent.classList.remove('bg-black');
+                mainContent.classList.add('bg-gray-50');
+                
+                settingsPanel.classList.remove('bg-zinc-800');
+                settingsPanel.classList.add('bg-white');
+                
+                modeToggleBg.classList.remove('bg-black');
+                modeToggleBg.classList.add('bg-gray-100');
+                
+                heroImage.classList.remove('hero-dark');
+                heroImage.classList.add('hero-light');
+                
+                heroBtn.classList.remove('bg-white', 'text-black');
+                heroBtn.classList.add('bg-black', 'text-white');
+                
+                darkBtn.classList.remove('bg-white', 'text-black', 'shadow-md');
+                darkBtn.classList.add('text-gray-500');
+                
+                lightBtn.classList.remove('text-gray-500');
+                lightBtn.classList.add('bg-white', 'text-black', 'shadow-md');
+                
+                settingsBtn.classList.remove('text-white');
+                settingsBtn.classList.add('text-black');
+                
+                userBtn.classList.remove('text-white');
+                userBtn.classList.add('text-black');
+                
+                cartBtn.classList.remove('text-white');
+                cartBtn.classList.add('text-black');
+                
+                // Update nav links color
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('text-white');
+                    link.classList.add('text-black');
+                });
+            }
+        }
+
+        // Set font size
+        function setFontSize(value) {
+            const sizes = ['S', 'M', 'L'];
+            fontSize = sizes[parseInt(value)];
+            localStorage.setItem('fontSize', fontSize); // Save preference
+            
+            const classes = fontSizeClasses[fontSize];
+            
+            // Update logo
+            updateClasses('logo-text', classes.logo);
+            
+            // Update hero titles
+            updateClasses('hero-title-1', classes.hero);
+            updateClasses('hero-title-2', classes.hero);
+            updateClasses('hero-subtitle', classes.base);
+            updateClasses('hero-btn', classes.small);
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                updateElementClasses(link, classes.small);
+            });
+            
+            // Update feature text
+            document.querySelectorAll('.feature-text').forEach(text => {
+                updateElementClasses(text, classes.base);
+            });
+            
+            // Update bottom nav text
+            document.querySelectorAll('.bottom-nav-text').forEach(text => {
+                updateElementClasses(text, 'text-xs ' + classes.small);
+            });
+            
+            // Update settings panel labels
+            updateClasses('appearance-label', classes.small);
+            updateClasses('font-label', classes.small);
+        }
+
+        function updateClasses(elementId, newClass) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                updateElementClasses(element, newClass);
+            }
+        }
+
+        function updateElementClasses(element, newClass) {
+            // Remove all font size classes
+            element.className = element.className.replace(/text-(sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)/g, '').replace(/md:text-(sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)/g, '').trim();
+            // Add new class
+            element.className += ' ' + newClass;
+        }
+
+        // Initialize with saved preferences
+        setMode(isDarkMode ? 'dark' : 'light');
+        const fontSizeIndex = fontSize === 'S' ? 0 : fontSize === 'M' ? 1 : 2;
+        document.getElementById('font-slider').value = fontSizeIndex;
+        setFontSize(fontSizeIndex); // M
+    </script>
 </body>
 </html>
