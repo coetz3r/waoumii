@@ -1,0 +1,234 @@
+/* Base styles */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  /* box gackground 
+background-color: #d5c29e; */
+background-image: url("../img/bg.png");
+background-repeat: repeat;
+
+}
+
+main {
+  padding: 2rem;
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #333;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+.desktop-nav h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.desktop-nav nav ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.desktop-nav nav li {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Mobile Navigation (hidden by default) */
+.mobile-nav {
+  display: none;
+}
+
+/* Icon styles (desktop) */
+.icon-desktop-home::before {
+  content: "🏠";
+}
+.icon-desktop-about::before {
+  content: "📘";
+}
+.icon-desktop-contact::before {
+  content: "📞";
+}
+
+/* Icon styles (mobile) */
+.icon-mobile-home::before {
+  content: "🏡";
+}
+.icon-mobile-about::before {
+  content: "📱";
+}
+.icon-mobile-contact::before {
+  content: "✉️";
+}
+
+/* Responsive: Mobile layout */
+@media (max-width: 768px) {
+  /* Hide desktop nav */
+  .desktop-nav {
+    display: none;
+  }
+
+  /* Show mobile nav */
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #222;
+    color: white;
+    justify-content: space-around;
+    padding: 0.75rem 0;
+    z-index: 1000;
+  }
+
+  .mobile-nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile-nav li {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+/* Desktop Footer */
+.desktop-footer {
+  background: #222;
+  color: white;
+  padding: 2rem 3rem;
+  font-size: 0.9rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-logo img {
+  width: 120px;
+  margin-bottom: 0.5rem;
+}
+
+.footer-logo p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-column h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 0.4rem;
+}
+
+.footer-column a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+/* Hide desktop footer on mobile */
+@media (max-width: 768px) {
+  .desktop-footer {
+    display: none;
+  }
+}
+
+/* new section -------------*/
+/* Desktop Footer */
+.desktop-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #2a2a2a; /* dark grey */
+  color: #ccc;
+  padding: 2rem 3rem;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 180px;
+  margin-right: 2rem;
+}
+
+.footer-column h4 {
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 0.4rem;
+}
+
+.footer-column a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+}
+
+.footer-column.logo img {
+  width: 120px;
+  margin-bottom: 0.5rem;
+}
+
+.footer-column.logo p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+/* Hide desktop footer on mobile */
+@media (max-width: 768px) {
+  .desktop-footer {
+    display: none;
+  }
+}
+
+
+  /* Add padding to main content so it's not hidden behind nav */
+  main {
+    padding-bottom: 80px;
+  }
+}

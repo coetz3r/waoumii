@@ -1,0 +1,28 @@
+/* Light mode (default) */
+body {
+    background-color: #ffffff;
+    color: #000000;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+/* Button styling */
+#themeToggle {
+    padding: 10px 20px;
+    margin: 20px;
+    cursor: pointer;
+    border: 2px solid currentColor;
+    background-color: transparent;
+    color: inherit;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#themeToggle:hover {
+    opacity: 0.8;
+}
