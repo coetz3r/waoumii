@@ -12,10 +12,10 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
         }
         .hero-light {
-            background-image: url('./hero-light.png');
+            background-image: url('assets/img/hero-light.jpg');
         }
         .hero-dark {
-            background-image: url('./hero-dark.png');
+            background-image: url('assets/img/hero-dark.jpg');
         }
         .hero-bg {
             background-size: cover;
@@ -135,7 +135,7 @@
                         apart!
                     </h2>
                     <p id="hero-subtitle" class="text-base md:text-lg mb-6 opacity-80 max-w-2xl">
-                        unconventional thinking to the maximum
+                        unconventional thinking as the mainstream
                     </p>
                     <button id="hero-btn" class="bg-black text-white px-8 py-3 rounded-full text-base font-medium hover:opacity-80 transition-opacity">
                         read more
@@ -146,15 +146,15 @@
             <!-- Feature Icons -->
             <div class="grid grid-cols-3 gap-8 md:gap-16 max-w-4xl mx-auto">
                 <div class="flex flex-col items-center">
-                    <div class="text-4xl md:text-5xl mb-3">⚡</div>
+                    <img id="icon-power" src="./assets/img/icons/power-light.png" alt="Power" class="w-12 h-12 md:w-16 md:h-16 mb-3" />
                     <span class="feature-text text-base md:text-lg">power</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="text-4xl md:text-5xl mb-3">🔧</div>
+                    <img id="icon-pneumatic" src="./assets/img/icons/pneumatic-light.png" alt="Pneumatic" class="w-12 h-12 md:w-16 md:h-16 mb-3" />
                     <span class="feature-text text-base md:text-lg">pneumatic</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="text-4xl md:text-5xl mb-3">🤖</div>
+                    <img id="icon-robotics" src="./assets/img/icons/robotics-light.png" alt="Robotics" class="w-12 h-12 md:w-16 md:h-16 mb-3" />
                     <span class="feature-text text-base md:text-lg">robotics</span>
                 </div>
             </div>
@@ -165,19 +165,19 @@
     <nav id="bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200 px-6 py-4">
         <div class="grid grid-cols-4 gap-4">
             <button class="flex flex-col items-center">
-                <span class="text-2xl mb-1">🧪</span>
+                <img id="icon-lab" src="./assets/img/icons/lab-light.png" alt="Lab" class="w-6 h-6 mb-1" />
                 <span class="bottom-nav-text text-xs text-base">LAB</span>
             </button>
             <button class="flex flex-col items-center">
-                <span class="text-2xl mb-1">🏪</span>
+                <img id="icon-shop" src="./assets/img/icons/shop-light.png" alt="Shop" class="w-6 h-6 mb-1" />
                 <span class="bottom-nav-text text-xs text-base">SHOP</span>
             </button>
             <button class="flex flex-col items-center">
-                <span class="text-2xl mb-1">📰</span>
+                <img id="icon-news" src="./assets/img/icons/news-light.png" alt="News" class="w-6 h-6 mb-1" />
                 <span class="bottom-nav-text text-xs text-base">NEWS</span>
             </button>
             <button class="flex flex-col items-center">
-                <span class="text-2xl mb-1">🏢</span>
+                <img id="icon-company" src="./assets/img/icons/company-light.png" alt="Company" class="w-6 h-6 mb-1" />
                 <span class="bottom-nav-text text-xs text-base">COMPANY</span>
             </button>
         </div>
@@ -232,6 +232,15 @@
             const settingsBtn = document.getElementById('settings-btn');
             const userBtn = document.getElementById('user-btn');
             const cartBtn = document.getElementById('cart-btn');
+            
+            // Icon elements
+            const iconPower = document.getElementById('icon-power');
+            const iconPneumatic = document.getElementById('icon-pneumatic');
+            const iconRobotics = document.getElementById('icon-robotics');
+            const iconLab = document.getElementById('icon-lab');
+            const iconShop = document.getElementById('icon-shop');
+            const iconNews = document.getElementById('icon-news');
+            const iconCompany = document.getElementById('icon-company');
 
             if (isDarkMode) {
                 // Dark mode
@@ -273,6 +282,15 @@
                 
                 cartBtn.classList.remove('text-black');
                 cartBtn.classList.add('text-white');
+                
+                // Switch to dark icons
+                iconPower.src = './assets/img/icons/power-dark.png';
+                iconPneumatic.src = './assets/img/icons/pneumatic-dark.png';
+                iconRobotics.src = './assets/img/icons/robotics-dark.png';
+                iconLab.src = './assets/img/icons/lab-dark.png';
+                iconShop.src = './assets/img/icons/shop-dark.png';
+                iconNews.src = './assets/img/icons/news-dark.png';
+                iconCompany.src = './assets/img/icons/company-dark.png';
                 
                 // Update nav links color
                 document.querySelectorAll('.nav-link').forEach(link => {
@@ -319,6 +337,15 @@
                 
                 cartBtn.classList.remove('text-white');
                 cartBtn.classList.add('text-black');
+                
+                // Switch to light icons
+                iconPower.src = './assets/img/icons/power-light.png';
+                iconPneumatic.src = './assets/img/icons/pneumatic-light.png';
+                iconRobotics.src = './assets/img/icons/robotics-light.png';
+                iconLab.src = './assets/img/icons/lab-light.png';
+                iconShop.src = './assets/img/icons/shop-light.png';
+                iconNews.src = './assets/img/icons/news-light.png';
+                iconCompany.src = './assets/img/icons/company-light.png';
                 
                 // Update nav links color
                 document.querySelectorAll('.nav-link').forEach(link => {
