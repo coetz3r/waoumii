@@ -1,163 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>waoumii</title>
-  <link rel="stylesheet" href="assets/css/mode.css">
-  <script defer src="assets/js/script.js"></script>  
-  <script defer src="assets/js/settings.js"></script> 
 
+  <!-- Minimal reset + variables for light/dark -->
+  <style>
+    :root{
+      --bg: #ffffff;
+      --fg: #111;
+      --muted: #6b6b6b;
+      --accent: #000;
+      --toggle-bg: #000;
+      --toggle-fg: #fff;
+      --header-height: 56px;
+      --footer-height: 72px;
+    }
+    .dark{
+      --bg: #111212;
+      --fg: #f5f5f5;
+      --muted: #bdbdbd;
+      --accent: #fff;
+      --toggle-bg: #fff;
+      --toggle-fg: #111;
+    }
 
-<link rel="stylesheet" href="assets/css/desktop.css" media="(min-width: 1024px)">
-<link rel="stylesheet" href="assets/css/tablet.css" media="(min-width: 769px) and (max-width: 1023px)">
-<link rel="stylesheet" href="assets/css/mobile.css" media="(max-width: 768px)"> 
-    <!-- 
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--fg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-<link rel="stylesheet" href="desktop.css" media="(min-width: 1024px)">
-<link rel="stylesheet" href="tablet.css" media="(min-width: 768px) and (max-width: 1023px)">
-<link rel="stylesheet" href="mobile.css" media="(max-width: 767px)">
+    /* Header (fixed) */
+    header.topbar{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height:var(--header-height);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 16px;
+      box-sizing:border-box;
+      border-bottom:1px solid rgba(0,0,0,0.06);
+      background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+      backdrop-filter: blur(6px);
+      z-index:40;
+    }
+    .dark header.topbar{
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand img{
+      height:22px;
+      width:auto;
+      display:block;
+    }
+    .brand h1{
+      margin:0;
+      font-size:18px;
+      letter-spacing:0.6px;
+    }
+    .topbar .left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .topbar .settings-btn{
+      background:transparent;
+      border:0;
+      font-size:20px;
+      cursor:pointer;
+      color:var(--fg);
+    }
 
-<link rel="stylesheet" href="css/mobile.css" media="(max-width: 600px)">
-<link rel="stylesheet" href="css/tablet.css" media="(min-width: 601px) and (max-width: 1024px)">
-<link rel="stylesheet" href="css/desktop.css" media="(min-width: 1025px)">
-        -->
+    /* Main area */
+    main{
+      min-height: calc(100vh - var(--header-height) - var(--footer-height));
+      padding-top: calc(var(--header-height) + 24px);
+      padding-bottom: calc(var(--footer-height) + 24px);
+      box-sizing:border-box;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
 
+    /* Mode toggle pill (center) */
+    .mode-toggle{
+      display:inline-flex;
+      align-items:center;
+      gap:14px;
+      padding:12px 20px;
+      border-radius:999px;
+      background:var(--toggle-bg);
+      color:var(--toggle-fg);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      font-weight:700;
+      letter-spacing:1px;
+      user-select:none;
+      cursor:pointer;
+      transition:transform .18s ease;
+    }
+    .mode-toggle:active{ transform:scale(.99); }
+    .mode-toggle .label{
+      text-transform:uppercase;
+      font-size:13px;
+    }
 
+    /* small round switch on the right of pill */
+    .switch{
+      width:36px;
+      height:20px;
+      background:var(--bg);
+      border-radius:999px;
+      display:inline-block;
+      position:relative;
+      flex:0 0 36px;
+      box-sizing:border-box;
+      padding:2px;
+      border:1px solid rgba(0,0,0,0.06);
+    }
+    .dark .switch{ background:var(--bg); border:1px solid rgba(255,255,255,0.06); }
+    .knob{
+      width:16px;
+      height:16px;
+      background:var(--toggle-bg);
+      border-radius:50%;
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      left:2px;
+      transition:left .22s cubic-bezier(.2,.9,.2,1), background .18s linear;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .dark .knob{ left:18px; }
+
+    /* Bottom navigation fixed */
+    footer.bottom-nav{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      height:var(--footer-height);
+      background:transparent;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:40;
+      pointer-events:none;
+    }
+    .nav-wrap{
+      width:100%;
+      max-width:720px;
+      padding:0 8px;
+      box-sizing:border-box;
+      pointer-events:auto;
+    }
+    .nav{
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
+      gap:8px;
+      background:linear-gradient(0deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+      border-top:1px solid rgba(0,0,0,0.06);
+      padding:8px 10px;
+      border-radius:12px 12px 0 0;
+    }
+    .dark .nav{
+      background:linear-gradient(0deg, rgba(0,0,0,0.88), rgba(0,0,0,0.82));
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+    .nav-item{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:center;
+      font-size:11px;
+      color:var(--muted);
+      text-decoration:none;
+    }
+    .nav-item .icon{
+      height:22px;
+      width:22px;
+      border-radius:6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      color:var(--fg);
+    }
+    .nav-item.active .icon, .nav-item:hover{ color:var(--accent); }
+    .nav-item:active{ transform:translateY(1px); }
+
+    /* Responsive */
+    @media (min-width:1024px){
+      main{ padding-left:80px; padding-right:80px; }
+      .nav{ max-width:960px; border-radius:0; }
+    }
+  </style>
 </head>
 <body>
-
-<header class="desktop-nav">
-    <h1>Trilogy</h1>
-<nav>
-    <a href="home.html"><img src="img/icons/home.png"> </a>
-    <a href="products.html"><img src="img/icons/cart.png"> </a>
-    <a href="contact.html"><img src="img/icons/mail.png"> </a>
-</nav>
+  <header class="topbar" role="banner">
+    <div class="left brand">
+      <button class="settings-btn" aria-label="open settings">⚙️</button>
+      <!-- Replace with your SVG/logo file -->
+      <img src="logo.png" alt="waoumii" style="height:22px;">
+      <h1 style="font-weight:600;margin:0;">waoumii</h1>
+    </div>
+    <div class="right">
+      <!-- add other header controls if needed -->
+    </div>
   </header>
 
-
-<!-- light/dark mode selector button -->
-<button id="themeToggle">Toggle Dark/Light Mode</button>
-    
-    <h1>Your Content Here</h1>
-    <p>This is some sample content that will change with the theme.</p>
-    
-    <script src="script.js"></script>
-
-
-
-
-  <main>
-    <section>
-      <h2>Welcome</h2>
-      <p>This layout adapts to your device.</p>
-    </section>
+  <main role="main">
+    <!-- centre area with pill toggle -->
+    <button id="modePill" class="mode-toggle" aria-pressed="false" aria-label="Toggle dark or light mode">
+      <span class="label">Dark Mode</span>
+      <span class="switch" aria-hidden="true">
+        <span class="knob"></span>
+      </span>
+    </button>
   </main>
 
-
-
-<!-- Theme toggle icon (visible on mobile) -->
-<button id="menuIcon" class="menu-icon">☰</button>
-
-<!-- Slide-in panel -->
-<div id="slidePanel" class="slide-panel">
-    <button id="closePanel" class="close-btn">&times;</button>
-    <h3>Settings</h3>
-    <button id="themeToggle">Toggle Dark/Light Mode</button>
-
-<!-- light/dark mode selector button -->
-<button id="themeToggle">Toggle Dark/Light Mode</button>
-    
-    <h1>Your Content Here</h1>
-    <p>This is some sample content that will change with the theme.</p>
-    
-    <script src="script.js"></script>
-
-
-    
-</div>
-
-<!-- Overlay (darkens background when panel is open) -->
-<div id="overlay" class="overlay"></div>
-
-
-
-
-
-<!-- footer section -------------- -->
-<footer class="desktop-footer">
-  <div class="footer-column logo">
-    <img src="logo.png" alt="Trilogy Logo" />
-    <p>&copy; 2025 waoumi inc</p>
-  </div>
-
-  <div class="footer-column links">
-    <h4>Site Map</h4>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </div>
-
-  <div class="footer-column legal">
-    <h4>Legal</h4>
-    <ul>
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Terms of Service</a></li>
-      <li><a href="#">Licensing</a></li>
-    </ul>
-  </div>
-</footer>
-
-
-<!-- Desktop footer --
-
-<!-  desktop ->
-<footer class="desktop-footer">
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="logo.png" alt="Trilogy Logo" />
-      <p>&copy; 2025 waoumi inc</p>
+  <footer class="bottom-nav" role="contentinfo" aria-label="Primary">
+    <div class="nav-wrap">
+      <nav class="nav" role="navigation" aria-label="Bottom navigation">
+        <a class="nav-item" href="#" title="Lab">
+          <span class="icon">⚗️</span>
+          <span>Lab</span>
+        </a>
+        <a class="nav-item" href="#" title="Shop">
+          <span class="icon">🛒</span>
+          <span>Shop</span>
+        </a>
+        <a class="nav-item" href="#" title="Robotics">
+          <span class="icon">🤖</span>
+          <span>Robotics</span>
+        </a>
+        <a class="nav-item" href="#" title="Company">
+          <span class="icon">🏢</span>
+          <span>Company</span>
+        </a>
+      </nav>
     </div>
-
-    <div class="footer-links">
-      <div class="footer-column">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Press</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="#">Documentation</a></li>
-          <li><a href="#">Support</a></li>
-          <li><a href="#">API</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Licensing</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</footer> -->
-
-<!-- mobile -->
-  <footer class="mobile-nav">
-    <ul>
-      <li><i class="icon-mobile-home"></i></li>
-      <li><i class="icon-mobile-about"></i></li>
-      <li><i class="icon-mobile-contact"></i></li>
-    </ul>
   </footer>
+
+  <script>
+    (function(){
+      const body = document.documentElement;
+      const pill = document.getElementById('modePill');
+      const label = pill.querySelector('.label');
+
+      // Load saved preference
+      const saved = localStorage.getItem('waoumii-theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initialDark = saved ? saved === 'dark' : prefersDark;
+
+      function apply(dark){
+        if(dark){
+          body.classList.add('dark');
+          label.textContent = 'Light Mode';
+          pill.setAttribute('aria-pressed','true');
+        } else {
+          body.classList.remove('dark');
+          label.textContent = 'Dark Mode';
+          pill.setAttribute('aria-pressed','false');
+        }
+      }
+
+      // initialize
+      apply(initialDark);
+
+      // Toggle on click
+      pill.addEventListener('click',()=>{
+        const dark = body.classList.toggle('dark');
+        apply(dark);
+        localStorage.setItem('waoumii-theme', dark ? 'dark' : 'light');
+      });
+
+      // keyboard accessibility
+      pill.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          pill.click();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
