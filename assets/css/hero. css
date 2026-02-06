@@ -1,0 +1,50 @@
+#hero-btn.hero-btn {
+  position: relative;
+  padding: 1.2rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Rotating segmented ring */
+#hero-btn.hero-btn::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 16px;
+  border: 3px dashed;
+  animation: rotate-ring 6s linear infinite;
+  z-index: -1;
+}
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+  #hero-btn.hero-btn {
+    background: white;
+    color: black;
+  }
+
+  #hero-btn.hero-btn::before {
+    border-color: black;
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  #hero-btn.hero-btn {
+    background: black;
+    color: white;
+  }
+
+  #hero-btn.hero-btn::before {
+    border-color: white;
+  }
+}
+
+@keyframes rotate-ring {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
