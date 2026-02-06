@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  body, html {
+    margin: 0;
+    height: 100%;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* Centering */
+  .section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  /* --- LIGHT MODE (Top) --- */
+  .light-mode { background: #f0f0f0; }
+  
+  .btn-light {
+    position: relative;
+    padding: 20px 40px;
+    border: none;
+    background: white;
+    color: #333;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  /* Rotating shadow segment for light mode */
+  .btn-light::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    z-index: -1;
+    background: conic-gradient(from var(--angle), transparent 20%, #bbb 25%, transparent 30%, transparent 70%, #bbb 75%, transparent 80%);
+    border-radius: 15px;
+    animation: rotate 4s linear infinite;
+  }
+
+  /* --- DARK MODE (Bottom) --- */
+  .dark-mode { background: #0a0a0a; }
+
+  .btn-dark {
+    position: relative;
+    padding: 20px 40px;
+    border: none;
+    background: #1a1a1a;
+    color: white;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  /* Rotating white glow segments */
+  .btn-dark::before, .btn-dark::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    z-index: -1;
+    /* Two white segments at opposite sides */
+    background: conic-gradient(from var(--angle), transparent 20%, #fff 25%, transparent 30%, transparent 70%, #fff 75%, transparent 80%);
+    border-radius: 15px;
+    animation: rotate 2s linear infinite;
+  }
+
+  .btn-dark::after {
+    filter: blur(10px); /* This creates the actual 'glow' bloom */
+    opacity: 0.8;
+  }
+
+  @keyframes rotate {
+    from { --angle: 0deg; }
+    to { --angle: 360deg; }
+  }
+
+  /* Hover interactivity */
+  .btn-dark:hover::after { filter: blur(18px); opacity: 1; }
+  .btn-light:hover { background: #fafafa; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="section light-mode">
+      <button class="btn-light">Shadow Spin (Light)</button>
+    </div>
+    <div class="section dark-mode">
+      <button class="btn-dark">White Glow (Dark)</button>
+    </div>
+  </div>
+
+</body>
+</html>
