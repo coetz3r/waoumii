@@ -1,13 +1,6 @@
-.hero-btn-wrap {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .hero-btn {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     background-color: #000;
     color: #fff;
     padding: 12px 32px;
@@ -16,57 +9,54 @@
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
+    overflow: visible; /* needed for the pseudo-element */
+    transition: all 0.2s;
 }
 
-/* DARK MODE button */
+/* Dark mode */
 body.dark-mode .hero-btn {
     background-color: #fff;
     color: #000;
 }
 
-/* Rotating segmented ring */
-.hero-btn-ring {
+/* The glowing ring */
+.hero-btn::before {
+    content: "";
     position: absolute;
-    inset: -6px; /* space around button */
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
     border-radius: 9999px;
-    z-index: 1;
-
-    background:
-        repeating-conic-gradient(
-            from 0deg,
-            #000 0deg 10deg,
-            transparent 10deg 20deg
-        );
-
-    animation: spin 6s linear infinite;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%) rotate(0deg);
+    z-index: -1;
+    filter: blur(8px);
+    animation: rotate-glow 4s linear infinite;
 }
 
-/* Dark mode ring */
-body.dark-mode .hero-btn-ring {
-    background:
-        repeating-conic-gradient(
-            from 0deg,
-            #fff 0deg 10deg,
-            transparent 10deg 20deg
-        );
+/* Dark mode glow */
+body.dark-mode .hero-btn::before {
+    background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, transparent 70%);
+    filter: blur(10px);
 }
 
-/* Mask the middle so only border shows */
-.hero-btn-ring {
-    -webkit-mask: radial-gradient(
-        farthest-side,
-        transparent calc(100% - 4px),
-        #000 calc(100% - 3px)
-    );
-            mask: radial-gradient(
-        farthest-side,
-        transparent calc(100% - 4px),
-        #000 calc(100% - 3px)
-    );
+/* Spin animation */
+@keyframes rotate-glow {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+  
