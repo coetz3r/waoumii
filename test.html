@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First Webpage</title>
+<script>  
+/* Root colors */
+:root {
+  --bg-light: #f4f4f4;
+  --bg-dark: #0a0a0a;
+  --btn-bg-light: #fff;
+  --btn-bg-dark: #1a1a1a;
+}
+
+/* Page layout */
+body, html {
+  margin: 0; padding: 0; height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.top { background: var(--bg-light); }
+.bottom { background: var(--bg-dark); }
+
+/* --- Button wrapper --- */
+.btn-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* --- Rotating glow / border behind button --- */
+.rotating-glow {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border-radius: 18px;
+  z-index: 0;
+  filter: blur(15px);
+  opacity: 0.6;
+  animation: rotate 3s linear infinite;
+  background: conic-gradient(
+    from 0deg,
+    transparent 20%, #aaa 25%, transparent 30%,
+    transparent 70%, #aaa 75%, transparent 80%
+  );
+}
+
+/* Dark mode glow */
+.btn-wrapper.dark-mode .rotating-glow {
+  background: conic-gradient(
+    from 0deg,
+    transparent 20%, #fff 25%, transparent 30%,
+    transparent 70%, #fff 75%, transparent 80%
+  );
+}
+
+/* --- The button itself --- */
+.waoumii-btn {
+  position: relative;
+  z-index: 1;
+  padding: 24px 48px;
+  min-width: 240px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.waoumii-btn:active { transform: scale(0.96); }
+
+/* Button colors */
+.btn-light { background: var(--btn-bg-light); color: #333; }
+.btn-dark { background: var(--btn-bg-dark); color: #fff; }
+
+/* Rotation keyframes */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .waoumii-btn {
+    width: 80%;
+    padding: 30px 20px;
+    font-size: 1.4rem;
+  }
+}
+
+</script>
+
+
+</head>
+<body>
+<a href="index.html">return to index</a>
+
+
+
+<div class="container">
+  <div class="section top">
+    <div class="btn-wrapper">
+      <div class="rotating-glow"></div>
+      <button class="waoumii-btn btn-light">Light Mode</button>
+    </div>
+  </div>
+
+  <div class="section bottom">
+    <div class="btn-wrapper dark-mode">
+      <div class="rotating-glow"></div>
+      <button class="waoumii-btn btn-dark">Dark Mode</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    <h1>Welcome to My Website</h1>
+    <p>This is my first paragraph of text on this page.</p>
+
+</body>
+</html>
