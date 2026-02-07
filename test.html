@@ -17,28 +17,53 @@
   position: relative;
   display: inline-flex;
 }
-
 .rotating-glow {
   position: absolute;
-  inset: -8px; /* araea */
+  inset: -6px;
   border-radius: 18px;
+  z-index: 0;
 
-/* background: conic-gradient(
-  from var(--angle),
-  transparent 18%, rgba(0,0,0,0.6) 28%, transparent 38%,
-  transparent 62%, rgba(0,0,0,0.6) 72%, transparent 82%
-); */
+  background: conic-gradient(
+    from var(--angle),
+    transparent 18%, rgba(0,0,0,0.85) 28%, transparent 38%,
+    transparent 62%, rgba(0,0,0,0.85) 72%, transparent 82%
+  );
+
+  /* THIS is the magic */
+  -webkit-mask: radial-gradient(
+    circle,
+    transparent 60%,
+    #000 66%,
+    #000 72%,
+    transparent 78%
+  );
+  mask: radial-gradient(
+    circle,
+    transparent 60%,
+    #000 66%,
+    #000 72%,
+    transparent 78%
+  );
+
+  filter: blur(2px);   /* tiny blur keeps it organic */
+  opacity: 0.9;
+}
+
 
   
+/*  .rotating-glow {
+  position: absolute;
+  inset: -8px; 
+  border-radius: 18px;
   background: conic-gradient(
     from var(--angle),
     transparent 18%, #000 28%, transparent 38%,
     transparent 62%, #000 72%, transparent 82%
   );
-  filter: blur(10px); /* area */
+  filter: blur(10px); 
   opacity: 1;
   animation: spin 3s linear infinite;
-}
+} */
 
 .waoumii-btn {
   position: relative;
