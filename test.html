@@ -22,13 +22,21 @@
   position: absolute;
   inset: -8px; /* araea */
   border-radius: 18px;
+
+/* background: conic-gradient(
+  from var(--angle),
+  transparent 18%, rgba(0,0,0,0.6) 28%, transparent 38%,
+  transparent 62%, rgba(0,0,0,0.6) 72%, transparent 82%
+); */
+
+  
   background: conic-gradient(
     from var(--angle),
-    transparent 18%, #888 28%, transparent 38%,
-    transparent 18%, #888 28%, transparent 38%
+    transparent 18%, #000 28%, transparent 38%,
+    transparent 62%, #000 72%, transparent 82%
   );
   filter: blur(10px); /* area */
-  opacity: 0.6;
+  opacity: 1;
   animation: spin 3s linear infinite;
 }
 
