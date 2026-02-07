@@ -55,7 +55,7 @@ h1{
      position: relative;
 } 
 
-h1::after{
+.wow::after{
      content: ' ';
      z-index: - 1;
      position: absolute;
@@ -67,7 +67,7 @@ h1::after{
      border-radius: 10px:
     } 
 
-.h1::before{
+.wow::before{
      content: ' ';
      background: linear-gradient(45deg, #000, #fff, #000, #fff);
      position: absolute;
@@ -88,7 +88,7 @@ h1::after{
 }
 
 /* hover effect */
-h1:hover::before{
+.wow:hover::before{
       opacity: 1;
 }
 
@@ -112,9 +112,19 @@ h1:hover::before{
     <button class="hero-btn">Test Button</button>
   </div>
 
-<br><br>
+<br><br><br>
+<button type="button">Click Me!</button>
 
-<h1>my element</h1>
+<br><br><br>
+
+
+  <div class="btn-wrapper2">
+    <div class="rotating-glow2"></div>
+    <button class="hero-btn2">Test Button</button>
+  </div>
+<br><br><br>
+
+<h1 class="wow">my element</h1>
 
 </body>
 </html>
