@@ -526,13 +526,18 @@ body.dark-mode .hero-outline {
   display: inline-flex;
 } 
 
+body.dark-mode .rotating-glow{
+  background: conic-gradient(
+    from var(--angle), 
+   #fff 0deg 90deg,transparent 90deg);
+}
  .rotating-glow {
   position: absolute;
   inset: -2px; 
   border-radius: 50px;
   background: conic-gradient(
     from var(--angle),
-#fff 0deg 90deg, transparent 90deg);
+#000 0deg 90deg, transparent 90deg);
 
 /*
     transparent 18%, #000 28%, transparent 38%,
