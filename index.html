@@ -418,6 +418,33 @@
             margin: 0;
             font-size: 48px;
         }
+/* hero title */
+.hero-outline {
+    color: #fff;
+    -webkit-text-stroke: 2px #000;
+
+    /* fallback + subtle depth */
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+}
+@media (min-width: 768px) {
+    .hero-outline {
+        -webkit-text-stroke: 3px #000;
+    }
+}
+
+body.dark-mode .hero-outline {
+    color: #000;
+    -webkit-text-stroke: 2px #fff;
+    text-shadow:
+        -1px -1px 0 #fff,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
+}
 
         @media (min-width: 768px) {
             #hero-title-1, #hero-title-2 {
@@ -657,12 +684,14 @@
             <div class="hero-section">
                 <div id="hero-image" class="hero-bg hero-light"></div>
                 <div class="hero-overlay">
-                    <h1 id="hero-title-1">worlds</h1>
-                    <h2 id="hero-title-2">apart!</h2>
+
+<h1 id="hero-title-1" class="hero-outline">worlds</h1>
+<h2 id="hero-title-2" class="hero-outline">apart!</h2>
+
                     <p id="hero-subtitle">unconventional thinking to the maximum</p>
 
 
-<!-- hero btn -->        
+<!-- hero btn -->  
 <button class="hero-btn" id="hero-btn">read more</button>
 
 
