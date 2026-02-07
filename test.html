@@ -20,62 +20,24 @@
 
 
   
-.rotating-glow {
-  position: absolute;
-  inset: -4px;                 /* closer to button */
-  border-radius: 16px;
-  z-index: 0;
-
-  background: conic-gradient(
-    from var(--angle),
-    transparent 0deg,
-    rgba(0,0,0,0.9) 40deg,
-    transparent 80deg,
-    transparent 180deg,
-    rgba(0,0,0,0.9) 220deg,
-    transparent 260deg,
-    transparent 360deg
-  );
-
-  /* HARD ring mask = solid line */
-  -webkit-mask: radial-gradient(
-    circle,
-    transparent 64%,
-    #000 68%,
-    #000 72%,
-    transparent 76%
-  );
-  mask: radial-gradient(
-    circle,
-    transparent 64%,
-    #000 68%,
-    #000 72%,
-    transparent 76%
-  );
-
-  filter: blur(1px);           /* minimal blur */
-  opacity: 1;
-
-  animation: spin 3s linear infinite;
-}
 
 
   
 
   
-/*  .rotating-glow {
+ .rotating-glow {
   position: absolute;
   inset: -8px; 
-  border-radius: 18px;
+  border-radius: 10px;
   background: conic-gradient(
     from var(--angle),
     transparent 18%, #000 28%, transparent 38%,
     transparent 62%, #000 72%, transparent 82%
   );
-  filter: blur(10px); 
+  filter: blur(8px); 
   opacity: 1;
   animation: spin 3s linear infinite;
-} */
+} 
 
 .waoumii-btn {
   position: relative;
