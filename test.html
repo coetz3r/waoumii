@@ -16,13 +16,13 @@
 .btn-wrapper {
   position: relative;
   display: inline-flex;
-    border-radius: 24px;
+    border-radius: 50px;
 } 
   
  .rotating-glow {
   position: absolute;
   inset: -8px; 
-  border-radius: 24px;
+  border-radius: 50px;
   background: conic-gradient(
     from var(--angle),
     transparent 18%, #000 28%, transparent 38%,
@@ -42,8 +42,9 @@ conic-gradient(red 0deg, red 90deg, yellow 90deg, yellow 180deg, green 180deg, g
   position: relative;
   z-index: 1;
   padding: 24px 48px;
-  border-radius: 24px;
-  border: none;
+  border-radius: 50px;
+  border-color: #000;
+    border-width: 2px;
 }
 
 @keyframes spin {
