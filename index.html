@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waoumii</title>
-
-<!-- <link rel="stylesheet" href="assets/css/style.css"> 
-<link rel="stylesheet" href="./assets/css/hero.css"> -->
-
     <style>
         * {
             margin: 0;
@@ -19,13 +15,13 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            background-color: #fff;
+            background-color: #f3f4f6;
             color: #000;
         }
 
         body.dark-mode {
             background-color: #000;
-            color: #f0f0f8;  /* #fff; */
+            color: #fff;
         }
 
         .hero-light {
@@ -68,7 +64,7 @@
         }
 
         body.dark-mode #settings-panel {
-            background-color: #101010;  /* #27272a; */
+            background-color: #27272a;
         }
 
         @media (min-width: 768px) {
@@ -349,8 +345,7 @@
 
         /* Main Content */
         #main-content {
-            background-color: #fff 
-/* #f3f4f6; */
+            background-color: #f3f4f6;
             padding: 48px 16px;
             margin-top: 80px;
             margin-bottom: 96px;
@@ -358,7 +353,6 @@
 
         body.dark-mode #main-content {
             background-color: #000;
-/* & & & & & & */
         }
 
         @media (min-width: 768px) {
@@ -420,33 +414,6 @@
             margin: 0;
             font-size: 48px;
         }
-/* hero title */
-.hero-outline {
-    color: #000;
-    -webkit-text-stroke: 1px #fff;
-
-    /* fallback + subtle depth */
-    /* text-shadow:
-        -3px -3px 0 #fff,
-         1px -1px 0 #fff,
-        -1px  1px 0 #fff,
-         1px  1px 0 #fff; */
-}
-@media (min-width: 768px) {
-    .hero-outline {
-        -webkit-text-stroke: 3px #000;
-    }
-}
-
-body.dark-mode .hero-outline {
-    color: #fff;
-    -webkit-text-stroke: 1px #000;
-   /* text-shadow:
-        -3px -3px 0 #000,
-         2px -2px 0 #000,
-        -2px  2px 0 #000,
-         2px  2px 0 #000; */
-}
 
         @media (min-width: 768px) {
             #hero-title-1, #hero-title-2 {
@@ -461,7 +428,7 @@ body.dark-mode .hero-outline {
         #hero-subtitle {
             font-size: 16px;
             margin-bottom: 24px;
-            opacity: 1;
+            opacity: 0.8;
             max-width: 512px;
         }
 
@@ -472,10 +439,10 @@ body.dark-mode .hero-outline {
         }
 
         #hero-btn {
-            background-color: #fff;
-            color: #000;
+            background-color: #000;
+            color: #fff;
             padding: 12px 32px;
-            /* border: none; */
+            border: none;
             border-radius: 9999px;
             font-size: 16px;
             font-weight: 500;
@@ -484,8 +451,8 @@ body.dark-mode .hero-outline {
         }
 
         body.dark-mode #hero-btn {
-            background-color: #000;
-            color: #fff;
+            background-color: #fff;
+            color: #000;
         }
 
         #hero-btn:hover {
@@ -514,8 +481,8 @@ body.dark-mode .hero-outline {
         }
 
         .feature-item img {
-            width: 42px;
-            height: 42px;
+            width: 48px;
+            height: 48px;
             margin-bottom: 12px;
         }
 
@@ -527,7 +494,7 @@ body.dark-mode .hero-outline {
         }
 
         .feature-text {
-            font-size: 12px;
+            font-size: 16px;
         }
 
         @media (min-width: 768px) {
@@ -552,8 +519,8 @@ body.dark-mode .hero-outline {
         }
 
         body.dark-mode #bottom-nav {
-            background-color: #000;
-            border-top-color: #000;
+            background-color: #ffffff;
+            border-top-color: #3f3f46;
         }
 
         @media (min-width: 768px) {
@@ -572,19 +539,14 @@ body.dark-mode .hero-outline {
         }
 
         .bottom-nav-item img {
-            width: 18px;
-            height: 18px;
-            margin-bottom: 8px;
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
         }
 
         .bottom-nav-text {
-  font-size: clamp(4px, 1vw, 5px);
-   /* font-size: 4px; */
+            font-size: 12px;
         }
-
-        body.dark-mode .bottom-nav-text{
-            color: #fff;
-        } 
     </style>
 </head>
 <body>
@@ -691,19 +653,11 @@ body.dark-mode .hero-outline {
             <div class="hero-section">
                 <div id="hero-image" class="hero-bg hero-light"></div>
                 <div class="hero-overlay">
-
-<h1 id="hero-title-1" class="hero-outline">worlds</h1>
-<h2 id="hero-title-2" class="hero-outline">apart!</h2>
-
-<!-- #######R#RRRR&&& -->
-     <p id="hero-subtitle">unconventional thinking to the maximum</p>
-
-
-<!-- hero btn -->  
-<button class="hero-btn" id="hero-btn">read more</button>
-
-
-    </div>
+                    <h1 id="hero-title-1">worlds</h1>
+                    <h2 id="hero-title-2">apart!</h2>
+                    <p id="hero-subtitle">unconventional thinking to the maximum</p>
+                    <button id="hero-btn">read more</button>
+                </div>
             </div>
 
             <!-- Feature Icons -->
@@ -895,14 +849,5 @@ body.dark-mode .hero-outline {
         document.getElementById('font-slider').value = fontSizeIndex;
         setFontSize(fontSizeIndex);
     </script>
-<a href="test.html">test page</a>
-    <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-        sunt in culpa qui officia deserunt mollit anim id est laborum."
-    </p>
 </body>
 </html>
