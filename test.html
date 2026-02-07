@@ -17,38 +17,50 @@
   position: relative;
   display: inline-flex;
 }
+
+
+  
 .rotating-glow {
   position: absolute;
-  inset: -6px;
-  border-radius: 18px;
+  inset: -4px;                 /* closer to button */
+  border-radius: 16px;
   z-index: 0;
 
   background: conic-gradient(
     from var(--angle),
-    transparent 18%, rgba(0,0,0,0.85) 28%, transparent 38%,
-    transparent 62%, rgba(0,0,0,0.85) 72%, transparent 82%
+    transparent 0deg,
+    rgba(0,0,0,0.9) 40deg,
+    transparent 80deg,
+    transparent 180deg,
+    rgba(0,0,0,0.9) 220deg,
+    transparent 260deg,
+    transparent 360deg
   );
 
-  /* THIS is the magic */
+  /* HARD ring mask = solid line */
   -webkit-mask: radial-gradient(
     circle,
-    transparent 60%,
-    #000 66%,
+    transparent 64%,
+    #000 68%,
     #000 72%,
-    transparent 78%
+    transparent 76%
   );
   mask: radial-gradient(
     circle,
-    transparent 60%,
-    #000 66%,
+    transparent 64%,
+    #000 68%,
     #000 72%,
-    transparent 78%
+    transparent 76%
   );
 
-  filter: blur(2px);   /* tiny blur keeps it organic */
-  opacity: 0.9;
+  filter: blur(1px);           /* minimal blur */
+  opacity: 1;
+
+  animation: spin 3s linear infinite;
 }
 
+
+  
 
   
 /*  .rotating-glow {
