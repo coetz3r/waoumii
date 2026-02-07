@@ -50,6 +50,17 @@ conic-gradient(red 0deg, red 90deg, yellow 90deg, yellow 180deg, green 180deg, g
   to   { --angle: 360deg; }
 }
 
+/* pseudo-element */
+h1{
+     position: relative;
+} 
+
+h1::before{
+     content: 'hello';
+     background: red;
+
+} 
+
 </style>
 
 
@@ -68,6 +79,10 @@ conic-gradient(red 0deg, red 90deg, yellow 90deg, yellow 180deg, green 180deg, g
     <div class="rotating-glow"></div>
     <button class="hero-btn">Test Button</button>
   </div>
+
+<br><br>
+
+<h1>my element</h1>
 
 </body>
 </html>
