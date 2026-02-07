@@ -20,14 +20,14 @@
 
 .rotating-glow {
   position: absolute;
-  inset: -12px;
+  inset: -8px; /* araea */
   border-radius: 18px;
   background: conic-gradient(
     from var(--angle),
-    transparent 20%, #aaa 25%, transparent 30%,
-    transparent 70%, #aaa 75%, transparent 80%
+    transparent 18%, #888 28%, transparent 38%,
+    transparent 18%, #888 28%, transparent 38%
   );
-  filter: blur(14px);
+  filter: blur(10px); /* area */
   opacity: 0.6;
   animation: spin 3s linear infinite;
 }
@@ -52,22 +52,15 @@
 </head>
  
 <body style="display:flex;justify-content:center;align-items:center;height:100vh;">
+  
   <a href="index.html">return home</a>
 <br><br>
   
-<div class="btn-wrapper">
-  <div class="rotating-glow"></div>
-  <button class="waoumii-btn">Light Mode</button>
-</div>
-
-
-
-<!--
  
   <div class="btn-wrapper">
     <div class="rotating-glow"></div>
     <button class="waoumii-btn">Test Button</button>
   </div>
-  -->
+
 </body>
 </html>
