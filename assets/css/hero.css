@@ -1,61 +1,36 @@
-.hero-btn {
-    position: relative;
-    z-index: 1;
-    background-color: #000;
-    color: #fff;
-    padding: 12px 32px;
-    border: none;
-    border-radius: 9999px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    overflow: visible; /* needed for the pseudo-element */
-    transition: all 0.2s;
+@property --angle{
+   Syntax: "<angle>";
+   initial-value: 0deg;
+   inherits: false;
+} 
+. hero-btn::before,.hero-btn::after{
+   content: ' ';
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   background-image: comic-gradient (from var, transparent 50%, #fff) ;
+   top: 50%;
+   left: 50%;
+   translate: -50% -50%;
+   z-index: -1;
+   padding: 10px;
+   border-raduis: 10px;
+   animation: 3s spin linear infinite;
+} 
+
+.hero-btn::before{
+   filter: blur(1.5rem);
+   opacity: 0.5;
 }
 
-/* Dark mode */
-body.dark-mode .hero-btn {
-    background-color: #fff;
-    color: #000;
-}
-
-/* The glowing ring */
-.hero-btn::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 120%;
-    height: 120%;
-    border-radius: 9999px;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-    transform: translate(-50%, -50%) rotate(0deg);
-    z-index: -1;
-    filter: blur(8px);
-    animation: rotate-glow 4s linear infinite;
-}
-
-/* Dark mode glow */
-body.dark-mode .hero-btn::before {
-    background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, transparent 70%);
-    filter: blur(10px);
-}
-
-/* Spin animation */
-@keyframes rotate-glow {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-
-
-
-
-
-
-
-
-
+@keyframe spin{
+from {
+    --angle: 0deg;
+ } 
+to {
+    --angle: 360deg;
+  } 
+} 
 
 
 
