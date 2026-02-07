@@ -6,6 +6,13 @@
 <title>Glow Test</title>
 
 <style>
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .btn-wrapper {
   position: relative;
   display: inline-flex;
@@ -15,9 +22,14 @@
   position: absolute;
   inset: -12px;
   border-radius: 18px;
-  background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
-  animation: rotate 3s linear infinite;
-  z-index: 0;
+  background: conic-gradient(
+    from var(--angle),
+    transparent 20%, #aaa 25%, transparent 30%,
+    transparent 70%, #aaa 75%, transparent 80%
+  );
+  filter: blur(14px);
+  opacity: 0.6;
+  animation: spin 3s linear infinite;
 }
 
 .waoumii-btn {
@@ -26,22 +38,36 @@
   padding: 24px 48px;
   border-radius: 12px;
   border: none;
-  font-size: 18px;
 }
 
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+@keyframes spin {
+  from { --angle: 0deg; }
+  to   { --angle: 360deg; }
 }
+
+
+
+  
 </style>
 </head>
-<br><br>
-  <a href="index.html">return home</a>
-
+ 
 <body style="display:flex;justify-content:center;align-items:center;height:100vh;">
+  <a href="index.html">return home</a>
+<br><br>
+  
+<div class="btn-wrapper">
+  <div class="rotating-glow"></div>
+  <button class="waoumii-btn">Light Mode</button>
+</div>
+
+
+
+<!--
+ 
   <div class="btn-wrapper">
     <div class="rotating-glow"></div>
     <button class="waoumii-btn">Test Button</button>
   </div>
+  -->
 </body>
 </html>
