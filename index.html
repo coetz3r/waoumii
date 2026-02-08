@@ -275,6 +275,105 @@ body.comfort-mode {
      color: var(--muted-text);
 }
 
+/* LANGUAGE SELECTOR */
+.language-section {
+    margin-top: 20px;
+}
+
+#language-label {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+.language-selector {
+    position: relative;
+}
+
+#language-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+#language-button:hover {
+    border-color: #4CAF50;
+}
+
+.language-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.language-name {
+    flex: 1;
+    text-align: left;
+    font-weight: 500;
+}
+
+.dropdown-arrow {
+    font-size: 10px;
+    color: #666;
+    transition: transform 0.2s;
+}
+
+.dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.language-dropdown.hidden {
+    display: none;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.language-option:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+.language-option.active {
+    background-color: rgba(76, 175, 80, 0.2);
+    font-weight: 600;
+}
+
+
+
+
 
     /* Top Navigation */
         #top-nav {
@@ -725,6 +824,7 @@ body.dark-mode .rotating-glow{
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
+
         
         <!-- Dark/Light Mode Toggle -->
         <div class="appearance-section">
@@ -774,7 +874,43 @@ body.dark-mode .rotating-glow{
   <input type="checkbox" id="comfort-section">
 </label>
 </div>
-            
+         
+       <!--   LANGUAGE SELECTOR -->
+       <!-- LANGUAGE SELECTOR -->
+<div class="language-section">
+    <div id="language-label">
+        <span>LANGUAGE</span>
+    </div>
+    <div class="language-selector">
+        <button id="language-button" onclick="toggleLanguageDropdown()">
+            <span class="language-icon" id="current-flag">🇬🇧</span>
+            <span class="language-name" id="current-language">English</span>
+            <span class="dropdown-arrow" id="lang-arrow">▼</span>
+        </button>
+        
+        <div id="language-dropdown" class="language-dropdown hidden">
+            <button class="language-option active" onclick="changeLanguage('en', 'English', '🇬🇧')">
+                <span class="language-icon">🇬🇧</span>
+                <span class="language-name">English</span>
+            </button>
+            <button class="language-option" onclick="changeLanguage('zu', 'isiZulu', '🇿🇦')">
+                <span class="language-icon">🇿🇦</span>
+                <span class="language-name">isiZulu</span>
+            </button>
+            <button class="language-option" onclick="changeLanguage('xh', 'isiXhosa', '🇿🇦')">
+                <span class="language-icon">🇿🇦</span>
+                <span class="language-name">isiXhosa</span>
+            </button>
+            <button class="language-option" onclick="changeLanguage('st', 'Sesotho', '🇿🇦')">
+                <span class="language-icon">🇿🇦</span>
+                <span class="language-name">Sesotho</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
   </div>
 
 
@@ -1075,6 +1211,45 @@ comfortToggle.addEventListener("change", () => {
 
 
 
+// LANGUAGE SELECTOR 
+function toggleLanguageDropdown() {
+    const dropdown = document.getElementById('language-dropdown');
+    const arrow = document.getElementById('lang-arrow');
+    
+    dropdown.classList.toggle('hidden');
+    arrow.classList.toggle('open');
+}
+
+function changeLanguage(code, name, flag) {
+    // Update the button display
+    document.getElementById('current-flag').textContent = flag;
+    document.getElementById('current-language').textContent = name;
+    
+    // Update active state
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.classList.remove('active');
+    });
+    event.target.closest('.language-option').classList.add('active');
+    
+    // Close dropdown
+    document.getElementById('language-dropdown').classList.add('hidden');
+    document.getElementById('lang-arrow').classList.remove('open');
+    
+    // Store selection (for later use with i18n)
+    localStorage.setItem('selectedLanguage', code);
+    
+    // Later you'll add actual translation logic here
+    console.log('Language changed to:', code);
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const selector = document.querySelector('.language-selector');
+    if (selector && !selector.contains(event.target)) {
+        document.getElementById('language-dropdown').classList.add('hidden');
+        document.getElementById('lang-arrow').classList.remove('open');
+    }
+});
 
     </script>
 <a href="test.html">test page</a><br><br>
