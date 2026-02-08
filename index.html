@@ -229,7 +229,27 @@
             color: #9ca3af;
         }
 
-        /* Top Navigation */
+
+   :root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --muted-text: #222;
+}
+ 
+/* COMFORT selector */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Comfort mode */
+body.comfort-mode {
+  --bg-color: #f2f2f2;      /* soft grey */
+  --text-color: #1a1a1a;    /* not full black */
+  --muted-text: #444;
+} 
+
+    /* Top Navigation */
         #top-nav {
             position: fixed;
             top: 0;
@@ -716,6 +736,13 @@ body.dark-mode .rotating-glow{
                 </div>
             </div>
         </div>
+
+<!-- COMFORT selector -->
+<label class="setting-item">
+  <span>Comfort mode</span>
+  <input type="checkbox" id="comfortToggle">
+</label>
+
     </div>
 
     <!-- Top Navigation -->
