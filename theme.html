@@ -1,4 +1,87 @@
 <!DOCTYPE html>
+<html lang="en" data-theme="arctic">
+<head>
+<meta charset="UTF-8">
+<title>Theme Test</title>
+
+<style>
+:root {
+  --bg-main: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --text-main: #111111;
+
+  --accent-primary: #000000;
+  --accent-secondary: #666666;
+
+  --border-color: #dddddd;
+  --glow-color: rgba(0,0,0,0.2);
+}
+
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.hero-btn {
+  padding: 12px 24px;
+  border: 2px solid var(--border-color);
+  background: transparent;
+  color: var(--text-main);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* Arctic */
+[data-theme="arctic"] {
+  --bg-main: #f5f9fc;
+  --bg-secondary: #e6eef5;
+  --text-main: #0f1f2e;
+
+  --accent-primary: #4da3ff;
+  --accent-secondary: #b8d9ff;
+
+  --border-color: #cfd8e3;
+  --glow-color: rgba(77, 163, 255, 0.6);
+}
+
+/* Tropical */
+[data-theme="tropical"] {
+  --bg-main: #fff3e0;
+  --bg-secondary: #ffe0b2;
+  --text-main: #3b1f0e;
+
+  --accent-primary: #ff5722;
+  --accent-secondary: #ffc107;
+
+  --border-color: #ff8a50;
+  --glow-color: rgba(255, 87, 34, 0.7);
+}
+</style>
+</head>
+
+<body>
+
+<a href="index">home</a>
+
+<button class="hero-btn" onclick="setTheme('arctic')">Arctic</button>
+<button class="hero-btn" onclick="setTheme('tropical')">Tropical</button>
+
+<script>
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+}
+
+// ON LOAD
+const savedTheme = localStorage.getItem("theme") || "arctic";
+setTheme(savedTheme);
+</script>
+
+</body>
+</html>
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,11 +105,69 @@
   --glow-color: rgba(0,0,0,0.2);
 }
 
-
 body {
   background: var(--bg-main);
   color: var(--text-main);
 }
+
+
+/* THEME VARIABLES */
+
+/* ARTIC THEME */
+[data-theme="arctic"] {
+  /* Light */
+  --bg-main: #f5f9fc;
+  --bg-secondary: #e6eef5;
+  --text-main: #0f1f2e;
+
+  --accent-primary: #4da3ff;
+  --accent-secondary: #b8d9ff;
+
+  --border-color: #cfd8e3;
+  --glow-color: rgba(77, 163, 255, 0.6);
+}
+
+
+[data-theme="arctic"].dark {
+  --bg-main: #0b1620;
+  --bg-secondary: #132534;
+  --text-main: #e8f1ff;
+
+  --accent-primary: #6bb6ff;
+  --accent-secondary: #2b5f9e;
+
+  --border-color: #1f3a52;
+  --glow-color: rgba(109, 182, 255, 0.8);
+}
+
+
+// TROPICAL THEME 
+[data-theme="tropical"] {
+  /* Light */
+  --bg-main: #fff3e0;
+  --bg-secondary: #ffe0b2;
+  --text-main: #3b1f0e;
+
+  --accent-primary: #ff5722;
+  --accent-secondary: #ffc107;
+
+  --border-color: #ff8a50;
+  --glow-color: rgba(255, 87, 34, 0.7);
+}
+
+[data-theme="tropical"].dark {
+  --bg-main: #1a0e08;
+  --bg-secondary: #2a160c;
+  --text-main: #ffe9d6;
+
+  --accent-primary: #ff784e;
+  --accent-secondary: #ff9800;
+
+  --border-color: #5a2a14;
+  --glow-color: rgba(255, 120, 78, 0.8);
+}
+
+
 
 .hero-btn {
   border-color: var(--border-color);
@@ -65,23 +206,36 @@ body {
 
 <a href="index">home</a>
 
-
+<button class="hero-btn" onclick="setTheme('arctic')">Arctic</button>
+<button class="hero-btn" onclick="setTheme('tropical')">Tropical</button>
 
 <script>
-
-function setTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  localStorage.setItem("theme", theme);
-}
-
 
 
 // ON LOAD
 const savedTheme = localStorage.getItem("theme") || "arctic";
 setTheme(savedTheme);
 
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+}
+
+function toggleDark() {
+  document.documentElement.classList.toggle("dark");
+  localStorage.setItem(
+    "dark",
+    document.documentElement.classList.contains("dark")
+  );
+}
+
+// Restore
+const savedTheme = localStorage.getItem("theme") || "arctic";
+const isDark = localStorage.getItem("dark") === "true";
+
+setTheme(savedTheme);
+document.documentElement.classList.toggle("dark", isDark);
 
 </script>
-
 </body>
 </html>
