@@ -736,7 +736,7 @@ body.dark-mode .rotating-glow{
                 </div>
             </div>
         </div>
-
+<br>
 <!-- COMFORT selector -->
 <label class="setting-item">
   <span>Comfort mode</span>
@@ -1014,6 +1014,33 @@ if (isDarkMode) {
         const fontSizeIndex = fontSize === 'S' ? 0 : fontSize === 'M' ? 1 : 2;
         document.getElementById('font-slider').value = fontSizeIndex;
         setFontSize(fontSizeIndex);
+
+
+
+// COMFORT selector 
+const comfortToggle = document.getElementById("comfortToggle");
+
+function applyComfortMode(state) {
+  document.body.classList.toggle("comfort-mode", state);
+  localStorage.setItem("comfortMode", state ? "on" : "off");
+}
+
+// Load preference on page load
+const savedComfort = localStorage.getItem("comfortMode");
+if (savedComfort === "on") {
+  applyComfortMode(true);
+  comfortToggle.checked = true;
+}
+
+// Toggle on change
+comfortToggle.addEventListener("change", () => {
+  applyComfortMode(comfortToggle.checked);
+});
+
+
+
+
+
     </script>
 <a href="test.html">test page</a><br><br>
     <p>
