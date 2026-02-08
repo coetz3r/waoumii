@@ -275,6 +275,80 @@ body.comfort-mode {
      color: var(--muted-text);
 }
 
+/* Hide the default checkbox */
+.toggle-checkbox {
+  display: none;
+}
+
+/* COMFORT SELECTOR */
+/* The slider container */
+.toggle-label {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 30px;
+  transition: background-color 0.3s;
+}
+
+/* The text (OFF by default) */
+.toggle-label::before {
+  content: 'OFF';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  font-weight: bold;
+  color: #666;
+  transition: all 0.3s;
+}
+
+/* The slider knob */
+.toggle-label::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Checked state - change track color */
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #4CAF50;
+}
+
+/* Checked state - change text to ON */
+.toggle-checkbox:checked + .toggle-label::before {
+  content: 'ON';
+  left: 10px;
+  right: auto;
+  color: white;
+}
+
+/* Checked state - slide the knob */
+.toggle-checkbox:checked + .toggle-label::after {
+  transform: translateX(30px);
+}
+
+/* Optional: Focus state for accessibility */
+.toggle-checkbox:focus + .toggle-label {
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+
+
+
+
+
+
 /* LANGUAGE SELECTOR */
 .language-section {
     margin-top: 20px;
@@ -371,8 +445,25 @@ body.comfort-mode {
     font-weight: 600;
 }
 
+/* LANGUAGE DARK MODE */
+body.dark-mode .language-section {
+    /* any dark mode specific styles */
+}
 
+body.dark-mode #language-button {
+    background-color: var(--dark-bg-color);
+    border-color: var(--dark-border-color);
+    color: var(--dark-text-color);
+}
 
+body.dark-mode .language-dropdown {
+    background-color: var(--dark-bg-color);
+    border-color: var(--dark-border-color);
+}
+
+body.dark-mode .language-option:hover {
+    background-color: rgba(76, 175, 80, 0.15);
+}
 
 
     /* Top Navigation */
@@ -871,9 +962,19 @@ body.dark-mode .rotating-glow{
  <div id="comfort-label">
   <span>CONTRAST</span>
   </div>
-  <input type="checkbox" id="comfort-section">
+<input type="checkbox" id="toggle" class="toggle-checkbox">
+<label for="toggle" class="toggle-label"></label>
+
+  <!--  <input type="checkbox" id="comfort-section">  -->
 </label>
 </div>
+
+
+
+
+
+
+
          
        <!--   LANGUAGE SELECTOR -->
        <!-- LANGUAGE SELECTOR -->
