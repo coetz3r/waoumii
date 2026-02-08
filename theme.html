@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waoumii</title>
+
+<!-- <link rel="stylesheet" href="assets/css/style.css"> 
+<link rel="stylesheet" href="./assets/css/hero.css"> -->
+
+    <style>
+
+:root {
+  --bg-main;
+  --bg-secondary;
+  --text-main;
+  --accent-primary;
+  --accent-secondary;
+  --border-color;
+  --glow-color;
+}
+
+
+
+
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+.hero-btn {
+  border-color: var(--border-color);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+
+
+
+[data-theme="arctic"] {
+  --bg-main: #f5f9fc;
+  --bg-secondary: #e6eef5;
+  --text-main: #0f1f2e;
+
+  --accent-primary: #4da3ff;
+  --accent-secondary: #b8d9ff;
+
+  --border-color: #cfd8e3;
+  --glow-color: rgba(77, 163, 255, 0.6);
+}
+
+
+
+
+
+[data-theme="tropical"] {
+  --bg-main: #fff3e0;
+  --bg-secondary: #ffe0b2;
+  --text-main: #3b1f0e;
+
+  --accent-primary: #ff5722;
+  --accent-secondary: #ffc107;
+
+  --border-color: #ff8a50;
+  --glow-color: rgba(255, 87, 34, 0.7);
+}
+
+
+
+
+
+
+</style>
+</head>
+<body>
+
+<a href="index">home</a>
+
+
+<html data-theme="arctic">
+
+<script>
+
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+}
+
+
+
+// ON LOAD
+const savedTheme = localStorage.getItem("theme") || "arctic";
+setTheme(savedTheme);
+
+
+</script>
+
+</body>
