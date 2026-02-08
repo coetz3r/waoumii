@@ -1007,6 +1007,7 @@ body.dark-mode .rotating-glow{
 
 <!-- €€€€€ LANG INPUT €€€€€€€€ -->
           <!--  <button class="language-option" onclick="changeLanguage('zu', 'isiZulu', '🇿🇦')"> -->
+
                 <span class="language-icon">🇿🇦</span>
                 <span class="language-name">isiZulu</span>
             </button>
@@ -1139,6 +1140,9 @@ body.dark-mode .rotating-glow{
         </button>
     </nav>
 
+
+
+<!--  JS script -->
     <script>
         // Load saved preferences or use defaults
         let isDarkMode = localStorage.getItem('darkMode') === 'true' || false;
@@ -1304,8 +1308,6 @@ if (isDarkMode) {
 // COMFORT selector & & & & & & 
 
 // & & & & & fix browser lang
-// function changeLanguage(event, code, name, flag) {
-
 
 
 // const comfortToggle = document.getElementById("comfortToggle");
@@ -1339,7 +1341,7 @@ function toggleLanguageDropdown() {
     arrow.classList.toggle('open');
 }
 
-function changeLanguage(code, name, flag) {
+function changeLanguage(event, code, name, flag) {
     // Update the button display
     document.getElementById('current-flag').textContent = flag;
     document.getElementById('current-language').textContent = name;
@@ -1348,7 +1350,9 @@ function changeLanguage(code, name, flag) {
     document.querySelectorAll('.language-option').forEach(option => {
         option.classList.remove('active');
     });
-    event.target.closest('.language-option').classList.add('active');
+
+    // LANG PROBLEM & & & & & & & 
+//event.target.closest('.language-option').classList.add('active');
     
     // Close dropdown
     document.getElementById('language-dropdown').classList.add('hidden');
@@ -1370,8 +1374,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-
-
     </script>
 
 
@@ -1388,8 +1390,9 @@ document.addEventListener('click', function(event) {
         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
         nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-        sunt in culpa qui officia deserunt mollit anim id est laborum."
+        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident"
     </p>
+
+
 </body>
 </html>
