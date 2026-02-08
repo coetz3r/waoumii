@@ -265,7 +265,7 @@ body.comfort-mode {
   --muted-text: #444;
 } 
 .setting-item{
-     Padding-top: 50px;
+     padding-top: 50px;
 }
 #comfortToggle{
      padding-top: 50px;
@@ -465,7 +465,7 @@ body.dark-mode .language-dropdown {
 }
 
 body.dark-mode .language-option:hover {
-    background-color: f808080;
+    background-color: #808080;
 /* rgba(76, 175, 80, 0.15); */
 }
 
@@ -953,7 +953,7 @@ body.dark-mode .rotating-glow{
                 />
                 <div class="font-size-labels">
                     <span>SMALL</span>
-                    <span>MEDUIM</span>
+                    <span>MEDIUM</span>
                     <span>LARGE</span>
                 </div>
             </div>
@@ -966,7 +966,7 @@ body.dark-mode .rotating-glow{
  <div id="comfort-label">
   <span>CONTRAST</span>
   </div>
-<input type="checkbox" id="toggle" class="toggle-checkbox">
+<input type="checkbox" id="comfortToggle" class="toggle-checkbox">
 <label for="toggle" class="toggle-label"></label>
 
   <!--  <input type="checkbox" id="comfort-section">  -->
@@ -998,7 +998,13 @@ body.dark-mode .rotating-glow{
                 <span class="language-icon">🇬🇧</span>
                 <span class="language-name">English</span>
             </button>
-            <button class="language-option" onclick="changeLanguage('zu', 'isiZulu', '🇿🇦')">
+
+
+<button class="language-option" onclick="changeLanguage(event, 'en', 'English', '🇬🇧')">
+
+
+<!-- €€€€€ LANG INPUT €€€€€€€€ -->
+          <!--  <button class="language-option" onclick="changeLanguage('zu', 'isiZulu', '🇿🇦')"> -->
                 <span class="language-icon">🇿🇦</span>
                 <span class="language-name">isiZulu</span>
             </button>
@@ -1356,7 +1362,14 @@ document.addEventListener('click', function(event) {
     }
 });
 
+// & & & & & fix browser lang
+function changeLanguage(event, code, name, flag) {
+
+
     </script>
+
+
+
 <a href="test.html">test page</a><br><br>
   
 
