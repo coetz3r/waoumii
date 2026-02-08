@@ -205,36 +205,19 @@ body {
 <body>
 
 <a href="index">home</a>
+<br>
 
-<button class="hero-btn" onclick="setTheme('arctic')">Arctic</button>
-<button class="hero-btn" onclick="setTheme('tropical')">Tropical</button>
 
 <script>
-
-
-// ON LOAD
-const savedTheme = localStorage.getItem("theme") || "arctic";
-setTheme(savedTheme);
-
 function setTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("theme", theme);
 }
 
-function toggleDark() {
-  document.documentElement.classList.toggle("dark");
-  localStorage.setItem(
-    "dark",
-    document.documentElement.classList.contains("dark")
-  );
-}
-
-// Restore
+// ON LOAD
 const savedTheme = localStorage.getItem("theme") || "arctic";
-const isDark = localStorage.getItem("dark") === "true";
-
 setTheme(savedTheme);
-document.documentElement.classList.toggle("dark", isDark);
+
 
 </script>
 </body>
