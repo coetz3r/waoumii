@@ -89,6 +89,50 @@
 
 
 
+/* CONTRAST */
+.segmented-control {
+    display: flex;
+    background: var(--bg-secondary);
+    border-radius: 99px;
+    padding: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.segmented-control button {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-main);
+    padding: 8px;
+    border-radius: 99px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+/* Active State */
+.segmented-control button.active {
+    background: var(--accent-primary);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* overwrite */
+/* When High Contrast is active, we sharpen the colors */
+[data-contrast="high"] {
+    --text-main: #000000;
+    --bg-main: #ffffff;
+    --border-color: #000000;
+}
+
+[data-mode="dark"][data-contrast="high"] {
+    --text-main: #ffffff;
+    --bg-main: #000000;
+    --border-color: #ffffff;
+}
+
+
 </style>
 
 
@@ -98,7 +142,41 @@
   <a href="index.html">return home</a>
 <br><br>
   
- 
+ <!-- CONTENT RESIZER -->
+<div class="setting-item">
+    <div id="font-label">CONTENT SIZE</div>
+    <div class="segmented-control" id="size-selector">
+        <button onclick="setFontSize('S')" data-size="S">SMALL</button>
+        <button onclick="setFontSize('M')" data-size="M">MEDIUM</button>
+        <button onclick="setFontSize('L')" data-size="L">LARGE</button>
+    </div>
+</div>
+
+
+<!-- THEME SELECTOR -->
+<div class="theme-section">
+    <div id="theme-label">VISUAL THEME</div>
+    <div class="dropdown">
+        <button id="theme-button" onclick="toggleThemeDropdown()">
+            <span id="current-theme-name">Glacies Nova</span>
+            <span class="arrow">▼</span>
+        </button>
+        <div id="theme-dropdown" class="dropdown-content hidden">
+            <button onclick="setTheme('arctic')">Glacies (Arctic)</button>
+            <button onclick="setTheme('tropical')">Solaris (Tropical)</button>
+            <button onclick="setTheme('nebula')">Nebula (Space)</button>
+        </div>
+    </div>
+</div>
+
+<!-- -->
+
+
+
+
+
+
+<!--
   <div class="btn-wrapper">
     <div class="rotating-glow"></div>
    <a href="index.html"><button class="hero-btn">return home</button></a>
@@ -107,7 +185,7 @@
 <br><br><br>
 <button type="button">Click Me!</button>
 
-<br><br><br>
+<br><br><br> -->
 
 
   <div class="wow2">
@@ -115,6 +193,55 @@
     <button class="wow3">Test Button</button>
   </div>
 <br><br><br>
+
+<script>
+
+
+// CONTRAST SELECTOR
+function setContrast(level) {
+    // level is 'high' or 'low'
+    document.documentElement.setAttribute('data-contrast', level);
+    localStorage.setItem('contrast', level);
+    
+    // Update UI buttons (add/remove .active class)
+    updateButtonUI('contrast-selector', level);
+}
+
+
+// THEME SELECTOR
+function initPreferences() {
+    // 1. Fetch from Storage or use Defaults
+    const prefs = {
+        mode: localStorage.getItem('mode') || 'light',
+        theme: localStorage.getItem('theme') || 'arctic',
+        contrast: localStorage.getItem('contrast') || 'low',
+        size: localStorage.getItem('fontSize') || 'M'
+    };
+
+    // 2. Apply to HTML tag
+    const root = document.documentElement;
+    root.setAttribute('data-mode', prefs.mode);
+    root.setAttribute('data-theme', prefs.theme);
+    root.setAttribute('data-contrast', prefs.contrast);
+    
+    // 3. Apply Font Size (Reuse your existing function)
+    setFontSize(prefs.size);
+
+    // 4. Update the actual buttons so they "look" active
+    updateButtonUI('mode-selector', prefs.mode);
+    updateButtonUI('size-selector', prefs.size);
+    updateButtonUI('contrast-selector', prefs.contrast);
+}
+
+window.onload = initPreferences;
+
+
+
+
+
+
+</script>
+
 
 </body>
 </html>
