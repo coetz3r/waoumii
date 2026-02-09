@@ -77,6 +77,23 @@
 }
 
 
+/* THEME SELECTOR */
+/* Normal Arctic Dark */
+[data-theme="arctic"][data-mode="dark"] {
+    --bg-main: #0b1620;
+    --accent: #4da3ff;
+}
+
+/* HIGH CONTRAST Arctic Dark (The overrides) */
+[data-theme="arctic"][data-mode="dark"][data-contrast="high"] {
+    --bg-main: #000000; /* Pure black for visibility */
+    --accent: #ffffff; /* High visibility white */
+    --border-color: #ffffff;
+}
+
+
+
+
 </style>
 
 
