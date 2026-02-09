@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waoumii test page</title>
+
+    <style>
+.root{
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --muted-text: #222;
+
+
+
+}
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background-color: #fff;
+            color: #000;
+        }
+
+        body.dark-mode {
+            background-color: #000;
+            color: #f0f0f8;  /* #fff; */
+        }
+
+        .hero-light {
+            background-image: url('./assets/img/hero-light.png');
+        }
+
+        .hero-dark {
+            background-image: url('./assets/img/hero-dark.png');
+        }
+
+        .hero-bg {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Settings Backdrop */
+        #settings-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            /* background-color: rgba(0, 0, 0, 0.5); */
+        }
+
+        /* Settings Panel */
+        #settings-panel {
+            position: fixed;
+            top: 80px;
+            left: 16px;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            padding: 24px;
+            width: 320px;
+        }
+
+        body.dark-mode #settings-panel {
+            background-color: #101010;  /* #27272a; */
+        }
+
+        @media (min-width: 768px) {
+            #settings-panel {
+                left: 32px;
+            }
+        }
+
+        #settings-panel button.close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0;
+        }
+
+        #settings-panel button.close-btn:hover {
+            color: #374151;
+        }
+
+        body.dark-mode #settings-panel button.close-btn {
+            color: #d1d5db;
+        }
+
+        body.dark-mode #settings-panel button.close-btn:hover {
+            color: #fff;
+        }
+
+        .close-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Appearance Toggle */
+        .appearance-section {
+            margin-bottom: 24px;
+        }
+
+        #appearance-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        #mode-toggle-bg {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f3f4f6;
+            border-radius: 9999px;
+            padding: 4px;
+        }
+
+        body.dark-mode #mode-toggle-bg {
+            background-color: #000;
+        }
+
+        #light-btn, #dark-btn {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 9999px;
+            transition: all 0.3s;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+/* Light button -- settings */
+        #light-btn {
+            background-color: #000;
+            color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        #dark-btn {
+            background-color: transparent;
+            color: #9ca3af;
+        }
+
+        #light-btn.inactive {
+            background-color: transparent;
+            color: #9ca3af;
+            box-shadow: none;
+        }
+
+        #dark-btn.active {
+            background-color: #fff;
+            color: #000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Font Size Section */
+        .font-section {
+            margin-top: 24px;
+        }
+
+        #font-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .font-slider-container {
+            position: relative;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background-color: #d1d5db;
+            border-radius: 8px;
+            appearance: none;
+            cursor: pointer;
+            accent-color: #374151;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background-color: #374151;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background-color: #374151;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        body.dark-mode input[type="range"] {
+            background-color: #52525b;
+        }
+
+        .font-size-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .font-size-labels span {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+
+/* comfort selector Toggle */
+        .comfort-section {
+            margin-bottom: 24px;
+        }
+
+        #comfort-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            margin-top: 25px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+
+
+/* COMFORT selector */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Comfort mode */
+body.comfort-mode {
+  --bg-color: #f2f2f2;      /* soft grey */
+  --text-color: #1a1a1a;    /* not full black */
+  --muted-text: #444;
+} 
+.setting-item{
+     padding-top: 50px;
+}
+#comfortToggle{
+     padding-top: 50px;
+}
+    p,
+    .article-text {
+     color: var(--muted-text);
+}
+
+/* Hide the default checkbox */
+.toggle-checkbox {
+  display: none;
+}
+
+/* COMFORT SELECTOR */
+/* The slider container */
+.toggle-label {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 30px;
+  transition: background-color 0.3s;
+}
+
+/* The text (OFF by default) */
+.toggle-label::before {
+  content: 'OFF';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  font-weight: bold;
+  color: #666;
+  transition: all 0.3s;
+}
+
+/* The slider knob */
+.toggle-label::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Checked state - change track color */
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #4CAF50;
+}
+
+/* Checked state - change text to ON */
+.toggle-checkbox:checked + .toggle-label::before {
+  content: 'ON';
+  left: 10px;
+  right: auto;
+  color: white;
+}
+
+/* Checked state - slide the knob */
+.toggle-checkbox:checked + .toggle-label::after {
+  transform: translateX(30px);
+}
+
+/* Optional: Focus state for accessibility */
+.toggle-checkbox:focus + .toggle-label {
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+
+
+
+
+
+
+/* LANGUAGE SELECTOR */
+.language-section {
+    margin-top: 20px;
+}
+
+#language-label {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+.language-selector {
+    position: relative;
+}
+
+#language-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+#language-button:hover {
+    border-color: #4CAF50;
+}
+
+.language-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.language-name {
+    flex: 1;
+    text-align: left;
+    font-weight: 500;
+}
+
+.dropdown-arrow {
+    font-size: 10px;
+    color: #666;
+    transition: transform 0.2s;
+}
+
+.dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.language-dropdown.hidden {
+    display: none;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left;
+    transition: background-color 0.5s ease;
+/* 0.2s; */
+}
+
+.language-option:hover {
+    background-color: red;
+/*  rgba(76, 175, 80, 0.1); */
+}
+
+.language-option.active {
+    background-color: blue;
+/* rgba(76, 175, 80, 0.2); */
+    font-weight: 600;
+}
+
+/* LANGUAGE DARK MODE */
+body.dark-mode .language-section {
+    /* any dark mode specific styles */
+}
+
+body.dark-mode #language-button {
+    background-color: var(--dark-bg-color);
+    border-color: var(--dark-border-color);
+    color: var(--dark-text-color);
+}
+
+body.dark-mode .language-dropdown {
+    background-color: var(--dark-bg-color);
+    border-color: var(--dark-border-color);
+}
+
+body.dark-mode .language-option:hover {
+    background-color: #808080;
+/* rgba(76, 175, 80, 0.15); */
+}
+
+
+    /* Top Navigation */
+        #top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 30;
+            background-color: #fff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        body.dark-mode #top-nav {
+            background-color: #000;  /* #18181b; */
+            border-bottom-color: #3f3f46;
+        }
+
+        .nav-container {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        @media (min-width: 768px) {
+            .nav-container {
+                padding: 16px 32px;
+            }
+        }
+
+        #settings-btn, #user-btn, #cart-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #000;
+            transition: opacity 0.2s;
+            padding: 0;
+        }
+
+        body.dark-mode #settings-btn,
+        body.dark-mode #user-btn,
+        body.dark-mode #cart-btn {
+            color: #fff;
+        }
+
+        #settings-btn:hover, #user-btn:hover, #cart-btn:hover {
+            opacity: 0.7;
+        }
+
+        #settings-btn svg, #user-btn svg, #cart-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Logo Section */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-container img {
+            width: 32px;
+            height: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .logo-container img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        #logo-text {
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        /* Desktop Navigation Links */
+        .desktop-nav {
+            display: none;
+            align-items: center;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .desktop-nav {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+            transition: opacity 0.2s;
+        }
+
+        body.dark-mode .nav-link {
+            color: #fff;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Mobile Icons */
+        .mobile-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-icons {
+                display: none;
+            }
+        }
+
+        /* Main Content */
+        #main-content {
+            background-color: #fff 
+/* #f3f4f6; */
+            padding: 48px 16px;
+            margin-top: 80px;
+            margin-bottom: 96px;
+        }
+
+        body.dark-mode #main-content {
+            background-color: #000;
+/* & & & & & & */
+        }
+
+        @media (min-width: 768px) {
+            #main-content {
+                padding: 80px 32px;
+                margin-bottom: 48px;
+            }
+        }
+
+        .main-container {
+            max-width: 80rem;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            margin-bottom: 48px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-section {
+                margin-bottom: 64px;
+            }
+        }
+
+        #hero-image {
+            width: 100%;
+            height: 256px;
+            border-radius: 16px;
+            opacity: 1;
+        }
+
+        @media (min-width: 768px) {
+            #hero-image {
+                height: 384px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #hero-image {
+                height: 500px;
+            }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 16px;
+        }
+
+/* hero title */
+        #hero-title-1, #hero-title-2 {
+            font-weight: 900;
+            margin: 0;
+            font-size: 48px;
+        }
+
+.hero-outline {
+    /* color: #000; */
+    -webkit-text-stroke: 1px #000;
+
+
+}
+@media (min-width: 768px) {
+    .hero-outline {
+        -webkit-text-stroke: 3px #000;
+    /* fallback + subtle depth */
+     text-shadow:
+         3px  3px 5px #fff,
+         3px  3px 5px #fff,
+         3px  3px 5px #fff,
+         3px  3px 5px #fff; 
+
+    }
+}
+
+body.dark-mode .hero-outline {
+    color: #fff;
+    -webkit-text-stroke: 1px #000;
+    text-shadow:
+         3px  3px 5px #000,
+         3px  3px 5px #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000; 
+}
+
+        @media (min-width: 768px) {
+            #hero-title-1, #hero-title-2 {
+                font-size: 96px;
+            }
+        }
+        #hero-title-1{
+            margin-bottom: -25px;
+            margin-top: 120px;
+            color: #fff;
+        }
+
+        #hero-title-2{
+            margin-bottom: 3px;
+            color: #fff;
+        }
+
+        #hero-subtitle {
+            font-size: 16px;
+            margin-bottom: 24px;
+            opacity: 1;
+            max-width: 512px;
+            color: #fff;
+        }
+
+        @media (min-width: 768px) {
+            #hero-subtitle {
+                font-size: 18px;
+            }
+        }
+
+/* & & & & & HERO button & & & */
+        #hero-btn {
+            background-color: #fff;
+            color: #000;
+            padding: 12px 32px;
+            /* border: none; */
+           /* border-radius: 9999px; */
+/* margin-bottom: 124px; */
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+
+.hero-btn {
+  position: relative;
+  z-index: 1;
+  /* padding: 18px 48px; */
+  border-radius: 50px;
+  border-color: #000;
+    border-width: 1px;
+   /* background-color: #fff; */
+} 
+
+        body.dark-mode #hero-btn {
+            background-color: #000;
+            border-color: #fff;
+            color: #fff;
+            border-width: 2px;
+        }
+
+        #hero-btn:hover {
+            opacity: 0.8;
+            border: 20px;
+        }
+
+/* rotating border */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.btn-wrapper {
+  position: relative;
+  display: inline-flex;
+} 
+
+body.dark-mode .rotating-glow{
+  background: conic-gradient(
+    from var(--angle), 
+   #fff 0deg 90deg,transparent 90deg)
+}
+ .rotating-glow {
+  position: absolute;
+  inset: -2px; 
+  border-radius: 50px;
+  background: conic-gradient(
+    from var(--angle),
+#000 0deg 90deg, transparent 90deg);
+
+/*
+    transparent 18%, #000 28%, transparent 38%,
+    transparent 62%, #000 72%, transparent 82%
+  );
+*/
+
+  /* filter: blur(2px); */
+  opacity: 1;
+  animation: spin 2s linear infinite;
+} 
+
+
+@keyframes spin {
+  from { --angle: 0deg; }
+  to   { --angle: 360deg; }
+}
+
+
+
+
+
+
+
+
+
+
+        /* Feature Icons Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 64rem;
+            /* margin: 0 auto; */
+            margin-top: 100px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                gap: 64px;
+            }
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-item img {
+            width: 42px;
+            height: 42px;
+            margin-bottom: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .feature-item img {
+                width: 64px;
+                height: 64px;
+            }
+        }
+
+        .feature-text {
+            font-size: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .feature-text {
+                font-size: 18px;
+            }
+        }
+
+        /* Bottom Navigation */
+        #bottom-nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 30;
+            background-color: #fff;
+            border-top: 1px solid #e5e7eb;
+            padding: 16px 24px;
+        }
+
+        body.dark-mode #bottom-nav {
+            background-color: #000;
+            border-top-color: #000;
+        }
+
+        @media (min-width: 768px) {
+            #bottom-nav {
+                display: none;
+            }
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .bottom-nav-item img {
+            width: 18px;
+            height: 18px;
+            margin-bottom: 8px;
+        }
+
+        .bottom-nav-text {
+  font-size: clamp(4px, 1vw, 5px);
+   /* font-size: 4px; */
+        }
+
+        body.dark-mode .bottom-nav-text{
+            color: #fff;
+        } 
+    </style>
+</head>
+<body>
+
+    <!-- Settings Dropdown -->
+    <div id="settings-backdrop" class="hidden" onclick="closeSettings()"></div>
+
+    <div id="settings-panel" class="hidden">
+        <!-- Close button -->
+        <button onclick="closeSettings()" class="close-btn">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+
+        <!-- Dark/Light Mode Toggle -->
+        <div class="appearance-section">
+            <div id="appearance-label">
+                <span>MODE</span>
+            </div>
+            <div id="mode-toggle-bg">
+                <button id="light-btn" onclick="setMode('light')">
+                    <span>LIGHT</span>
+                </button>
+                <button id="dark-btn" onclick="setMode('dark')">
+                    <span>DARK</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Font Size Selector -->
+        <div class="font-section">
+            <div id="font-label">
+                <span>CONTENT SIZE</span>
+            </div>
+            <div class="font-slider-container">
+                <input
+                    type="range"
+                    id="font-slider"
+                    min="0"
+                    max="2"
+                    step="1"
+                    value="1"
+                    onchange="setFontSize(this.value)"
+                />
+                <div class="font-size-labels">
+                    <span>SMALL</span>
+                    <span>MEDIUM</span>
+                    <span>LARGE</span>
+                </div>
+            </div>
+       </div>
+
+
+<!-- COMFORT selector -->
+<div>
+<label class="setting-item">
+ <div id="comfort-label">
+  <span>CONTRAST</span>
+  </div>
+
+<!-- CHECKBOX -->
+<input type="checkbox" id="comfortToggle" class="toggle-checkbox">
+<label for="toggle" class="toggle-label"></label>
+
+  <!--  <input type="checkbox" id="comfort-section">  -->
+</label>
+</div>
+
+
+
+
+
+
+
+
+       <!--   LANGUAGE SELECTOR -->
+       <!-- LANGUAGE SELECTOR -->
+<div class="language-section">
+    <div id="language-label">
+        <span>LANGUAGE</span>
+    </div>
+    <div class="language-selector">
+        <button id="language-button" onclick="toggleLanguageDropdown()">
+            <span class="language-icon" id="current-flag">🇬🇧</span>
+            <span class="language-name" id="current-language">English</span>
+            <span class="dropdown-arrow" id="lang-arrow">▼</span>
+        </button>
+
+        <div id="language-dropdown" class="language-dropdown hidden">
+            <button class="language-option active" onclick="changeLanguage('en', 'English', '🇬🇧')">
+                <span class="language-icon">🇬🇧</span>
+                <span class="language-name">English</span>
+            </button>
+
+
+<button class="language-option" onclick="changeLanguage(event, 'en', 'English', '🇬🇧')">
+
+
+<!-- €€€€€ LANG INPUT €€€€€€€€ -->
+          <!--  <button class="language-option" onclick="changeLanguage('zu', 'isiZulu', '🇿🇦')"> -->
+
+                <span class="language-icon">🇿🇦</span>
+                <span class="language-name">isiZulu</span>
+            </button>
+            <button class="language-option" onclick="changeLanguage('xh', 'isiXhosa', '🇿🇦')">
+                <span class="language-icon">🇿🇦</span>
+                <span class="language-name">isiXhosa</span>
+            </button>
+            <button class="language-option" onclick="changeLanguage('st', 'Sesotho', '🇿🇦')">
+                <span class="language-icon">🇿🇦</span>
+                <span class="language-name">Sesotho</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+  </div>
+
+
+
+
+    <!-- Top Navigation -->
+    <nav id="top-nav">
+        <div class="nav-container">
+            <!-- Left: Settings button -->
+            <button onclick="toggleSettings()" id="settings-btn">
+
+            <!-- <button id="menu-btn" onclick="toggleSettings()">  -->
+                <img id="logo-img" src="./assets/img/icon/settings-light.svg" alt="Menu" style="width: 24px; height: 24px;" />
+            <!-- </button>  -->
+                <!--
+
+                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>  -->
+            </button>
+
+            <!-- Center: Logo -->
+            <div class="logo-container">
+                <img id="main-logo" src="./assets/img/icon/logo-light.svg" alt="Logo" />
+                <span id="logo-text">waoumii</span>
+            </div>
+
+            <!-- Right: Navigation links (desktop only) -->
+            <div class="desktop-nav">
+                <a href="#" class="nav-link">lab</a>
+                <a href="#" class="nav-link">shop</a>
+                <a href="#" class="nav-link">news</a>
+                <a href="#" class="nav-link">company</a>
+            </div>
+
+            <!-- Mobile: User/Cart icons -->
+            <div class="mobile-icons">
+                <button id="user-btn">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </button>
+                <button id="cart-btn">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main id="main-content">
+        <div class="main-container">
+            <div class="hero-section">
+                <div id="hero-image" class="hero-bg hero-light"></div>
+                <div class="hero-overlay">
+
+<h1 id="hero-title-1" class="hero-outline">worlds</h1>
+<h2 id="hero-title-2" class="hero-outline">apart!</h2>
+
+<!-- #######R#RRRR&&& -->
+     <p id="hero-subtitle">unconventional thinking to the maximum</p>
+
+
+<!-- & & & & & old hero btn & & & 
+<button class="hero-btn" id="hero-btn">read more</button> -->
+
+<!-- HERO BUTTON!!! -->
+  <div class="btn-wrapper">
+    <div class="rotating-glow"></div>
+   <a href="index.html"><button class="hero-btn" id="hero-btn">visit lab</button></a>
+  </div> <!-- end of HERO button -->
+
+    </div>
+            </div>
+
+            <!-- Feature Icons -->
+            <div class="features-grid">
+                <div class="feature-item">
+                    <img id="icon-power" src="./assets/img/icon/power-light.svg" alt="Power" />
+                    <span class="feature-text">power</span>
+                </div>
+                <div class="feature-item">
+                    <img id="icon-pneumatic" src="./assets/img/icon/pneumatics-light.svg" alt="Pneumatic" />
+                    <span class="feature-text">pneumatics</span>
+                </div>
+                <div class="feature-item">
+                    <img id="icon-robotics" src="./assets/img/icon/robotics-light.svg" alt="Robotics" />
+                    <span class="feature-text">robotics</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile Only) -->
+    <nav id="bottom-nav">
+        <button class="bottom-nav-item">
+            <img id="icon-lab" src="./assets/img/icon/lab-light.svg" alt="Lab" />
+            <span class="bottom-nav-text">lab</span>
+        </button>
+        <button class="bottom-nav-item">
+            <img id="icon-shop" src="./assets/img/icon/shop-light.svg" alt="Shop" />
+            <span class="bottom-nav-text">shop</span>
+        </button>
+        <button class="bottom-nav-item">
+            <img id="icon-news" src="./assets/img/icon/news-light.svg" alt="News" />
+            <span class="bottom-nav-text">news</span>
+        </button>
+        <button class="bottom-nav-item">
+            <img id="icon-company" src="./assets/img/icon/company-light.svg" alt="Company" />
+            <span class="bottom-nav-text">company</span>
+        </button>
+    </nav>
+
+
+
+<!--  JS script -->
+    <script>
+        // Load saved preferences or use defaults
+        let isDarkMode = localStorage.getItem('darkMode') === 'true' || false;
+        let fontSize = localStorage.getItem('fontSize') || 'M'; // S, M, L
+
+        // Font size classes
+        const fontSizeClasses = {
+            S: { small: '12px', base: '14px', large: '18px', hero: '48px', heroMd: '48px', logo: '16px' },
+            M: { small: '14px', base: '16px', large: '20px', hero: '48px', heroMd: '96px', logo: '20px' },
+            L: { small: '16px', base: '18px', large: '24px', hero: '56px', heroMd: '144px', logo: '24px' }
+        };
+
+        // Toggle settings panel
+        function toggleSettings() {
+            const panel = document.getElementById('settings-panel');
+            const backdrop = document.getElementById('settings-backdrop');
+
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                backdrop.classList.remove('hidden');
+            } else {
+                panel.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-panel').classList.add('hidden');
+            document.getElementById('settings-backdrop').classList.add('hidden');
+        }
+
+        // Set dark/light mode
+        function setMode(mode) {
+            isDarkMode = (mode === 'dark');
+            localStorage.setItem('darkMode', isDarkMode);
+
+            const body = document.body;
+            const lightBtn = document.getElementById('light-btn');
+            const darkBtn = document.getElementById('dark-btn');
+            const logoImg = document.getElementById('logo-img'); // logo img
+const mainLogo = document.getElementById('main-logo');
+
+if (isDarkMode) {
+    mainLogo.src = './assets/img/icon/logo-dark.svg';
+} else {
+    mainLogo.src = './assets/img/icon/logo-light.svg';
+}
+
+
+
+
+            // Icon elements
+            const iconPower = document.getElementById('icon-power');
+            const iconPneumatic = document.getElementById('icon-pneumatic');
+            const iconRobotics = document.getElementById('icon-robotics');
+            const iconLab = document.getElementById('icon-lab');
+            const iconShop = document.getElementById('icon-shop');
+            const iconNews = document.getElementById('icon-news');
+            const iconCompany = document.getElementById('icon-company');
+
+
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                lightBtn.classList.add('inactive');
+                darkBtn.classList.add('active');
+
+                // Switch to dark icons
+                iconPower.src = './assets/img/icon/power-dark.svg';
+                iconPneumatic.src = './assets/img/icon/pneumatics-dark.svg';
+                iconRobotics.src = './assets/img/icon/robotics-dark.svg';
+                iconLab.src = './assets/img/icon/lab-dark.svg';
+                iconShop.src = './assets/img/icon/shop-dark.svg';
+                iconNews.src = './assets/img/icon/news-dark.svg';
+                iconCompany.src = './assets/img/icon/company-dark.svg';
+                    // claude fix
+                logoImg.src = './assets/img/icon/settings-dark.svg';
+
+
+                document.getElementById('hero-image').classList.remove('hero-light');
+                document.getElementById('hero-image').classList.add('hero-dark');
+            } else {
+                body.classList.remove('dark-mode');
+                lightBtn.classList.remove('inactive');
+                darkBtn.classList.remove('active');
+                // laude fix
+                logoImg.src = './assets/img/icon/settings-light.svg';
+
+                // Switch to light icons
+                iconPower.src = './assets/img/icon/power-light.svg';
+                iconPneumatic.src = './assets/img/icon/pneumatics-light.svg';
+                iconRobotics.src = './assets/img/icon/robotics-light.svg';
+                iconLab.src = './assets/img/icon/lab-light.svg';
+                iconShop.src = './assets/img/icon/shop-light.svg';
+                iconNews.src = './assets/img/icon/news-light.svg';
+                iconCompany.src = './assets/img/icon/company-light.svg';
+
+                document.getElementById('hero-image').classList.remove('hero-dark');
+                document.getElementById('hero-image').classList.add('hero-light');
+            }
+        }
+
+        // Set font size
+        function setFontSize(value) {
+            const sizes = ['S', 'M', 'L'];
+            fontSize = sizes[parseInt(value)];
+            localStorage.setItem('fontSize', fontSize);
+
+            const classes = fontSizeClasses[fontSize];
+
+            // Update logo
+            document.getElementById('logo-text').style.fontSize = classes.logo;
+
+            // Update hero titles - responsive
+            const heroTitle1 = document.getElementById('hero-title-1');
+            const heroTitle2 = document.getElementById('hero-title-2');
+            heroTitle1.style.fontSize = classes.hero;
+            heroTitle2.style.fontSize = classes.hero;
+
+            // Update for desktop
+            if (window.innerWidth >= 768) {
+                heroTitle1.style.fontSize = classes.heroMd;
+                heroTitle2.style.fontSize = classes.heroMd;
+            }
+
+            document.getElementById('hero-subtitle').style.fontSize = classes.base;
+            document.getElementById('hero-btn').style.fontSize = classes.small;
+
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.style.fontSize = classes.small;
+            });
+
+            // Update feature text
+            document.querySelectorAll('.feature-text').forEach(text => {
+                text.style.fontSize = classes.base;
+            });
+
+            // Update bottom nav text
+            document.querySelectorAll('.bottom-nav-text').forEach(text => {
+                text.style.fontSize = classes.small;
+            });
+
+            // Update settings panel labels
+            document.getElementById('appearance-label').style.fontSize = classes.small;
+            document.getElementById('font-label').style.fontSize = classes.small;
+        }
+
+        // Handle window resize for responsive font sizes
+        window.addEventListener('resize', () => {
+            const sizes = ['S', 'M', 'L'];
+            const fontSizeIndex = fontSize === 'S' ? 0 : fontSize === 'M' ? 1 : 2;
+            setFontSize(fontSizeIndex);
+        });
+
+        // Initialize with saved preferences
+        setMode(isDarkMode ? 'dark' : 'light');
+        const fontSizeIndex = fontSize === 'S' ? 0 : fontSize === 'M' ? 1 : 2;
+        document.getElementById('font-slider').value = fontSizeIndex;
+        setFontSize(fontSizeIndex);
+
+
+
+// COMFORT selector & & & & & & 
+
+// & & & & & fix browser lang
+
+
+// const comfortToggle = document.getElementById("comfortToggle");
+
+function applyComfortMode(state) {
+  document.body.classList.toggle("comfort-mode", state);
+  localStorage.setItem("comfortMode", state ? "on" : "off");
+}
+
+// Load preference on page load
+const savedComfort = localStorage.getItem("comfortMode");
+if (savedComfort === "on") {
+  applyComfortMode(true);
+  comfortToggle.checked = true;
+}
+
+// Toggle on change
+comfortToggle.addEventListener("change", () => {
+  applyComfortMode(comfortToggle.checked);
+});
+
+
+
+
+// LANGUAGE SELECTOR 
+function toggleLanguageDropdown() {
+    const dropdown = document.getElementById('language-dropdown');
+    const arrow = document.getElementById('lang-arrow');
+
+    dropdown.classList.toggle('hidden');
+    arrow.classList.toggle('open');
+}
+
+function changeLanguage(event, code, name, flag) {
+    // Update the button display
+    document.getElementById('current-flag').textContent = flag;
+    document.getElementById('current-language').textContent = name;
+
+    // Update active state
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.classList.remove('active');
+    });
+
+    // LANG PROBLEM & & & & & & & 
+//event.target.closest('.language-option').classList.add('active');
+
+    // Close dropdown
+    document.getElementById('language-dropdown').classList.add('hidden');
+    document.getElementById('lang-arrow').classList.remove('open');
+
+    // Store selection (for later use with i18n)
+    localStorage.setItem('selectedLanguage', code);
+
+    // Later you'll add actual translation logic here
+    console.log('Language changed to:', code);
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const selector = document.querySelector('.language-selector');
+    if (selector && !selector.contains(event.target)) {
+        document.getElementById('language-dropdown').classList.add('hidden');
+        document.getElementById('lang-arrow').classList.remove('open');
+    }
+});
+
+    </script>
+
+
+<a href="theme.html">themes page</a><br><br>
+
+<a href="test.html">test page</a><br><br>
+
+
+  <a href="slider.html">test slider</a>
+<br><br><br>
+
+
+<p>
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident"
+    </p>
+
+
+</body>
+</html>
