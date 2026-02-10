@@ -84,7 +84,7 @@ function updateIcons(isDark) {
 }
 
 // ============================================
-// CONTRAST
+// CONTRAST SELECTOR
 // ============================================
 
 function setContrast(level) {
@@ -94,9 +94,13 @@ function setContrast(level) {
     localStorage.setItem('preferredContrast', level);
 }
 
+
+
+
 // ============================================
-// LANGUAGE
+// THEME SELECTOR
 // ============================================
+
 
 // Toggle theme dropdown visibility
 function toggleThemeDropdown() {
@@ -154,6 +158,28 @@ document.addEventListener('click', function(event) {
     }
 });
 
+// ============================================
+// LANGUAGE
+// ============================================
+
+function toggleLanguageDropdown() {
+    document.getElementById('language-dropdown').classList.toggle('hidden');
+}
+
+function changeLanguage(code, name, flag) {
+    const curLang = document.getElementById('current-language');
+    const curFlag = document.getElementById('current-flag');
+    if (curLang) curLang.innerText = name;
+    if (curFlag) curFlag.innerText = flag;
+
+    document.querySelectorAll('.language-option').forEach(opt => {
+        opt.classList.toggle('active', opt.querySelector('.language-name').innerText === name);
+    });
+
+    toggleLanguageDropdown();
+    document.body.setAttribute('lang', code);
+    localStorage.setItem('selectedLanguage', code);
+}
 
 // ============================================
 // INITIALIZATION
@@ -168,10 +194,9 @@ window.addEventListener('DOMContentLoaded', () => {
     const savedMode = localStorage.getItem('darkMode') === 'true' ? 'dark' : 'light';
     setMode(savedMode);
 
-    // Load Theme
-// Toggle theme dropdown visibility
 
-   // Load Theme
+
+    // Load Theme
 // Load saved theme on page load
 document.addEventListener('DOMContentLoaded', function() {
     const savedTheme = localStorage.getItem('selectedTheme') || 'theme1';
@@ -198,6 +223,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+
+
+
+    //const themeSelect = document.getElementById('theme-toggle-bg');
+   // const savedTheme = localStorage.getItem('selected-theme') || 'theme1';
+   // if (themeSelect) {
+   //     themeSelect.value = savedTheme;
+  //      document.body.setAttribute('data-theme', savedTheme);
+  //      themeSelect.addEventListener('change', (e) => {
+   //         document.body.setAttribute('data-theme', e.target.value);
+   //         localStorage.setItem('selected-theme', e.target.value);
+   //     });
+  //  }
 
     // Load Contrast
     const savedContrast = localStorage.getItem('preferredContrast') || 'low';
