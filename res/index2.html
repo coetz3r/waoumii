@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waoumii</title>
+      <link rel="stylesheet" href="./style.css">
+        <script src="./script.js"></script> 
+ 
+</head>
+<body>
+
+    <!-- Settings Backdrop -->
+    <div id="settings-backdrop" class="hidden" onclick="closeSettings()"></div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="hidden">
+        <button onclick="closeSettings()" class="close-btn">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <!-- Dark/Light Mode Toggle -->
+        <div class="appearance-section">
+            <div id="appearance-label">
+                <span>MODE</span>
+            </div>
+            <div id="mode-toggle-bg">
+                <button id="light-btn" onclick="setMode('light')">
+                    <span>LIGHT</span>
+                </button>
+                <button id="dark-btn" onclick="setMode('dark')">
+                    <span>DARK</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Content Size -->
+        <div class="resizer-section">
+            <div id="resizer-label">CONTENT SIZE</div>
+            <div id="resizer-toggle-bg">
+                <button id="s-btn" class="size-btn" onclick="setFontSize('S')">S</button>
+                <button id="m-btn" class="size-btn active" onclick="setFontSize('M')">M</button>
+                <button id="l-btn" class="size-btn" onclick="setFontSize('L')">L</button>
+            </div>
+        </div>
+
+        <!-- Contrast -->
+        <div class="contrast-section">
+            <div id="contrast-label">
+                <span>Contrast</span>
+            </div>
+            <div id="contrast-toggle-bg">
+                <button id="low-btn" class="contrast-btn active" onclick="setContrast('low')">LOW</button>
+                <button id="high-btn" class="contrast-btn" onclick="setContrast('high')">HIGH</button>
+            </div>
+        </div>
+
+        <!-- Theme Selector -->
+        <div class="theme-section">
+            <div id="theme-label">Theme selector</div>
+            <button id="theme-display-btn" onclick="toggleThemeDropdown()">
+                <span id="current-theme">Theme 1</span>
+            </button>
+                    
+            <div id="theme-dropdown" class="theme-dropdown hidden">
+                <button class="theme-option active" onclick="changeTheme('theme1')">
+                    <span class="theme-name">Theme 1</span>
+                </button>
+                <button class="theme-option" onclick="changeTheme('theme2')">
+                    <span class="theme-name">Theme 2</span>
+                </button>
+                 <button class="theme-option" onclick="changeTheme('theme3')">
+                    <span class="theme-name">Theme 3</span>
+                </button>
+                 <button class="theme-option" onclick="changeTheme('theme4')">
+                    <span class="theme-name">Theme 4</span>
+                </button>
+                 <button class="theme-option" onclick="changeTheme('theme5')">
+                    <span class="theme-name">Theme 5</span>
+                </button>
+
+
+             </div>
+        </div>
+
+
+       <!-- Language Selector -->
+        <div class="language-section">
+            <div id="language-label">Language</div>
+            <button id="language-display-btn" onclick="toggleLanguageDropdown()">
+                <span id="current-flag">🇬🇧</span> 
+                <span id="current-language">English</span>
+                <span id="lang-arrow">▼</span>
+            </button>
+
+            <div id="language-dropdown" class="language-dropdown hidden">
+                <button class="language-option active" onclick="changeLanguage('en', 'English', '🇬🇧')">
+                     <span class="language-icon">🇬🇧</span> 
+                    <span class="language-name">English</span>
+                </button>
+                <button class="language-option" onclick="changeLanguage('zu', 'isiZulu', '🇿🇦')">
+                     <span class="language-icon">🇿🇦</span> 
+                    <span class="language-name">isiZulu</span>
+                </button>
+
+                </button>
+                <button class="language-option" onclick="changeLanguage('zu', 'isiXhosa', '🇿🇦')">
+                    <span class="language-icon">🇿🇦</span> 
+                    <span class="language-name">isiXhosa</span>
+                </button>
+
+                </button>
+                <button class="language-option" onclick="changeLanguage('zu', 'eSotho', '🇿🇦')">
+                     <span class="language-icon">🇿🇦</span> 
+                    <span class="language-name">eSohto</span>
+                </button>
+
+            </div>
+        </div>
+
+    
+
+    <!-- Top Navigation -->
+    <nav id="top-nav">
+        <div class="nav-container">
+            <!-- Settings Button -->
+            <button onclick="toggleSettings()" id="settings-btn">
+                <img id="settings-img" src="./assets/img/icon/settings-light.svg" alt="Settings" />
+            </button>
+
+            <!-- Logo -->
+            <div class="logo-container">
+                <img id="main-logo" src="./assets/img/icon/logo-light.svg" alt="Logo" />
+                <span id="logo-text">waoumii</span>
+            </div>
+
+            <!-- Desktop Navigation Links -->
+            <div class="desktop-nav">
+                <a href="#lab" class="nav-link">lab</a>
+                <a href="#shop" class="nav-link">shop</a>
+                <a href="#news" class="nav-link">news</a>
+                <a href="#company" class="nav-link">company</a>
+            </div>
+
+            <!-- Mobile User/Cart Icons -->
+            <div class="mobile-icons">
+                <button id="user-btn" aria-label="User account">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </button>
+                <button id="cart-btn" aria-label="Shopping cart">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="main-container">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div id="hero-image" class="hero-bg hero-light"></div>
+                <div class="hero-overlay">
+                    <h1 id="hero-title-1" class="hero-outline">worlds</h1>
+                    <h2 id="hero-title-2" class="hero-outline">apart!</h2>
+                    <p id="hero-subtitle">unconventional thinking to the maximum</p>
+
+                    <!-- Hero Button -->
+                    <div class="btn-wrapper">
+                        <div class="rotating-glow"></div>
+                        <a href="index.html">
+                            <button class="hero-btn" id="hero-btn">visit lab</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Icons -->
+            <div class="features-grid">
+                <div class="feature-item">
+                    <img id="icon-power" src="./assets/img/icon/power-light.svg" alt="Power" />
+                    <span class="feature-text">power</span>
+                </div>
+                <div class="feature-item">
+                    <img id="icon-pneumatic" src="./assets/img/icon/pneumatics-light.svg" alt="Pneumatic" />
+                    <span class="feature-text">pneumatics</span>
+                </div>
+                <div class="feature-item">
+                    <img id="icon-robotics" src="./assets/img/icon/robotics-light.svg" alt="Robotics" />
+                    <span class="feature-text">robotics</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile Only) -->
+    <nav id="bottom-nav">
+        <button class="bottom-nav-item">
+            <img id="icon-lab" src="./assets/img/icon/lab-light.svg" alt="Lab" />
+            <span class="bottom-nav-text">lab</span>
+        </button>
+        <button class="bottom-nav-item">
+            <img id="icon-shop" src="./assets/img/icon/shop-light.svg" alt="Shop" />
+            <span class="bottom-nav-text">shop</span>
+        </button>
+        <button class="bottom-nav-item">
+            <img id="icon-news" src="./assets/img/icon/news-light.svg" alt="News" />
+            <span class="bottom-nav-text">news</span>
+        </button>
+        <button class="bottom-nav-item">
+            <img id="icon-company" src="./assets/img/icon/company-light.svg" alt="Company" />
+            <span class="bottom-nav-text">company</span>
+        </button>
+    </nav>
+
+  
+</body>
+</html>
